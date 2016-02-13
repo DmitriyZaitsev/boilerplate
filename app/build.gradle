@@ -1,27 +1,59 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
-  compileSdkVersion 23
-  buildToolsVersion "23.0.2"
+  def android = rootProject.ext.android
+
+  compileSdkVersion android.compileSdkVersion
+  buildToolsVersion android.buildToolsVersion
 
   defaultConfig {
-    applicationId "dzaitsev.com.boilerplate"
-    minSdkVersion 14
-    targetSdkVersion 23
-    versionCode 1
-    versionName "1.0"
+    applicationId android.applicationId
+    minSdkVersion android.minSdkVersion
+    targetSdkVersion android.targetSdkVersion
+    versionCode android.versionCode
+    versionName android.versionName
+
+    buildConfigField 'String', 'BASE_URL_GITHUB', "\"${rootProject.ext.buildConfigMain.base_url}\""
   }
   buildTypes {
     release {
       minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      proguardFiles getDefaultProguardFile('proguard-android.txt'),
+          'proguard-rules.pro', 'proguard-rules-retrofit2.pro',
+          'proguard-rules-glide.pro', 'proguard-rules-butterknife.pro'
     }
+  }
+  lintOptions {
+    disable 'InvalidPackage'
+  }
+  packagingOptions {
+    exclude 'META-INF/services/javax.annotation.processing.Processor'
   }
 }
 
 dependencies {
+  def dependencies = rootProject.ext.dependencies
+  apt dependencies.daggerCompiler
+  apt dependencies.butterKnifeCompiler
+  apt dependencies.lombok
+
   compile fileTree(dir: 'libs', include: ['*.jar'])
-  testCompile 'junit:junit:4.12'
-  compile 'com.android.support:appcompat-v7:23.1.1'
-  compile 'com.android.support:design:23.1.1'
+  compile dependencies.appCompat
+  compile dependencies.supportV4
+  compile dependencies.butterKnife
+  compile dependencies.dagger
+  compile dependencies.supportDesign
+  compile dependencies.loggingInterceptor
+  compile dependencies.gson
+  compile dependencies.lombok
+  compile dependencies.retrofit
+  compile dependencies.converterGson
+  compile dependencies.okHttp
+  compile dependencies.adapterRxJava
+  compile dependencies.rxAndroid
+
+  testCompile dependencies.jUnit
 }
