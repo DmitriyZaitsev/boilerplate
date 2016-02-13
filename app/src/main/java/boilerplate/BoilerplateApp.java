@@ -2,6 +2,7 @@ package boilerplate;
 
 import android.app.Application;
 import boilerplate.di.AppComponent;
+import com.facebook.stetho.Stetho;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -21,5 +22,6 @@ public abstract class BoilerplateApp extends Application {
   @Override public void onCreate() {
     super.onCreate();
     mComponent = createComponent();
+    Stetho.initializeWithDefaults(this);
   }
 }

@@ -5,6 +5,7 @@ import boilerplate.BuildConfig;
 import boilerplate.data.GitHubApi;
 import boilerplate.data.GitHubRepository;
 import boilerplate.data.Repository;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import dagger.Module;
 import dagger.Provides;
 import java.util.concurrent.TimeUnit;
@@ -27,11 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public final class DataModule {
   @NonNull @Provides @Singleton BaseUrl provideBaseUrl() {
-    return new BaseUrl() {
-      @Override public HttpUrl url() {
-        return HttpUrl.parse(BuildConfig.BASE_URL_GITHUB);
-      }
-    };
+    return () -> HttpUrl.parse(BuildConfig.BASE_URL_GITHUB);
   }
 
   @Provides @Singleton GitHubApi provideGitHubApi(Retrofit retrofit) {
@@ -45,6 +42,7 @@ public final class DataModule {
     return new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS)
         .readTimeout(10, TimeUnit.SECONDS)
         .addInterceptor(loggingInterceptor)
+        .addNetworkInterceptor(new StethoInterceptor())
         .build();
   }
 

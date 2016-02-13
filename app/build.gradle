@@ -57,6 +57,8 @@ dependencies {
   compile dependencies.okHttp
   compile dependencies.adapterRxJava
   compile dependencies.rxAndroid
+  compile dependencies.stetho
+  compile dependencies.stethoOkHttp
   testCompile dependencies.jUnit
 }
 //@formatter:on
