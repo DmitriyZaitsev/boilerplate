@@ -16,10 +16,10 @@ public final class Owner {
   @Expose @SerializedName("gravatar_id")         String gravatarId;
   @Expose @SerializedName("gists_url")           String gistsUrl;
   @Expose @SerializedName("starred_url")         String starredUrl;
-  @Expose @SerializedName("site_admin")          String siteAdmin;
+  @Expose @SerializedName("site_admin")          boolean siteAdmin;
   @Expose @SerializedName("type")                String type;
   @Expose @SerializedName("url")                 String url;
-  @Expose @SerializedName("id")                  String id;
+  @Expose @SerializedName("id")                  long id;
   @Expose @SerializedName("html_url")            String htmlUrl;
   @Expose @SerializedName("following_url")       String followingUrl;
   @Expose @SerializedName("events_url")          String eventsUrl;
