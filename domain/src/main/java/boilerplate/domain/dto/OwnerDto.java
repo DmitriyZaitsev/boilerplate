@@ -12,6 +12,6 @@ import lombok.Value;
 @Value
 @Builder
 public final class OwnerDto {
-  String avatarUrl;
-  String login;
+  private String avatarUrl;
+  private String login;
 }

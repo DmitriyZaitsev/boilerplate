@@ -12,11 +12,11 @@ import lombok.Value;
 @Value
 @Builder
 public final class RepositoryDto {
-  String   name;
-  OwnerDto owner;
-  String   description;
-  long     watchers;
-  long     forks;
-  String   htmlUrl;
-  String   updatedAt;
+  private String   name;
+  private OwnerDto owner;
+  private String   description;
+  private long     watchers;
+  private long     forks;
+  private String   htmlUrl;
+  private String   updatedAt;
 }

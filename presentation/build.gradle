@@ -62,6 +62,8 @@ dependencies {
   compile dependencies.stetho
   compile dependencies.stethoOkHttp
   provided dependencies.jsr250Api
-  testCompile dependencies.jUnit
+
+  def testDependencies = rootProject.ext.testDependencies
+  testCompile testDependencies.jUnit
 }
 //@formatter:on
