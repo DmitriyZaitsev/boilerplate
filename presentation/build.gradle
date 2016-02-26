@@ -25,6 +25,9 @@ android {
           'proguard-rules.pro', 'proguard-rules-retrofit2.pro',
           'proguard-rules-glide.pro', 'proguard-rules-butterknife.pro'
     }
+    debug {
+      testCoverageEnabled true
+    }
   }
   lintOptions {
     disable 'InvalidPackage'

@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'jacoco'
 
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = 1.8
@@ -32,3 +33,11 @@ dependencies {
     testCompile testDependencies.mockito
     testCompile testDependencies.assertj
 }
+
+jacocoTestReport {
+    reports {
+        html.enabled = true
+    }
+}
+
+check.dependsOn jacocoTestReport
