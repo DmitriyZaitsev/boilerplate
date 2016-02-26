@@ -1,0 +1,34 @@
+apply plugin: 'java'
+apply plugin: 'me.tatarka.retrolambda'
+
+//noinspection GroovyUnusedAssignment
+sourceCompatibility = 1.8
+//noinspection GroovyUnusedAssignment
+targetCompatibility = 1.8
+
+configurations {
+    provided
+}
+
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+    }
+}
+
+dependencies {
+    def dependencies = rootProject.ext.dependencies
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':domain')
+    compile dependencies.lombok
+    compile dependencies.rxJava
+    compile dependencies.inject
+    compile dependencies.retrofit
+    compile dependencies.adapterRxJava
+    compile dependencies.gson
+
+    def testDependencies = rootProject.ext.testDependencies
+    testCompile testDependencies.jUnit
+    testCompile testDependencies.mockito
+    testCompile testDependencies.assertj
+}
