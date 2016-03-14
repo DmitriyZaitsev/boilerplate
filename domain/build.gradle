@@ -2,9 +2,9 @@ apply plugin: 'java'
 apply plugin: 'jacoco'
 
 //noinspection GroovyUnusedAssignment
-sourceCompatibility = 1.8
+sourceCompatibility = 1.7
 //noinspection GroovyUnusedAssignment
-targetCompatibility = 1.8
+targetCompatibility = 1.7
 
 configurations {
   provided
