@@ -14,7 +14,7 @@ public final class App extends BoilerplateApp {
 
   @Override protected AppComponent createComponent() {
     return DaggerAppComponent.builder()
-        .appModule(new AppModule(this, "DmitriyZaitsev"))
+        .appModule(new AppModule(this))
         .build();
   }
 

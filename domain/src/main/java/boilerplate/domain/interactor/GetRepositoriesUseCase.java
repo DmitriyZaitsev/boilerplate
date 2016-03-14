@@ -1,8 +1,9 @@
 package boilerplate.domain.interactor;
 
-import boilerplate.domain.repository.Repository;
+import boilerplate.domain.dto.RepositoryDto;
 import boilerplate.domain.executor.ExecutionThread;
 import boilerplate.domain.executor.PostExecutionThread;
+import boilerplate.domain.repository.Repository;
 import javax.inject.Inject;
 import rx.Observable;
 
@@ -12,18 +13,16 @@ import rx.Observable;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-13, 22:40
  */
-public final class GetRepositoriesUseCase extends UseCase {
-  private final String     mUserId;
+public final class GetRepositoriesUseCase extends UseCase<String, RepositoryDto> {
   private final Repository mRepository;
 
-  @Inject public GetRepositoriesUseCase(String userId, Repository repository, ExecutionThread executionThread,
+  @Inject public GetRepositoriesUseCase(Repository repository, ExecutionThread executionThread,
       PostExecutionThread postExecutionThread) {
     super(executionThread, postExecutionThread);
-    mUserId = userId;
     mRepository = repository;
   }
 
-  @Override protected Observable createObservable() {
-    return mRepository.getUsersRepositories(mUserId);
+  @Override protected Observable<RepositoryDto> createObservable(final String userName) {
+    return mRepository.getUsersRepositories(userName);
   }
 }

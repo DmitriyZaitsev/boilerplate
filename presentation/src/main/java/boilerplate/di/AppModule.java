@@ -4,13 +4,11 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import boilerplate.domain.executor.ExecutionThread;
 import boilerplate.domain.executor.PostExecutionThread;
-import boilerplate.domain.repository.Repository;
 import boilerplate.domain.interactor.GetRepositoriesUseCase;
-import boilerplate.domain.interactor.UseCase;
+import boilerplate.domain.repository.Repository;
 import boilerplate.presentation.presenter.MainScreenPresenter;
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Named;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 import rx.android.schedulers.AndroidSchedulers;
@@ -25,20 +23,18 @@ import rx.schedulers.Schedulers;
 @Module
 public final class AppModule {
   private final Context mContext;
-  private final String  mUserId;
 
-  public AppModule(Context context, String userId) {
+  public AppModule(Context context) {
     mContext = context;
-    mUserId = userId;
   }
 
   @Provides @Singleton Context provideContext() {
     return mContext;
   }
 
-  @Provides @Named("getRepositories") UseCase provideGetRepositoriesUseCase(Repository repository,
-      ExecutionThread executionThread, PostExecutionThread postExecutionThread) {
-    return new GetRepositoriesUseCase(mUserId, repository, executionThread, postExecutionThread);
+  @Provides GetRepositoriesUseCase provideGetRepositoriesUseCase(Repository repository, ExecutionThread executionThread,
+      PostExecutionThread postExecutionThread) {
+    return new GetRepositoriesUseCase(repository, executionThread, postExecutionThread);
   }
 
   @NonNull @Provides @Singleton ExecutionThread provideIoExecutionThread() {
@@ -49,7 +45,7 @@ public final class AppModule {
     return AndroidSchedulers::mainThread;
   }
 
-  @Provides MainScreenPresenter provideMainScreenPresenter(@Named("getRepositories") Provider<UseCase> useCase) {
+  @Provides MainScreenPresenter provideMainScreenPresenter(Provider<GetRepositoriesUseCase> useCase) {
     return new MainScreenPresenter(useCase);
   }
 }

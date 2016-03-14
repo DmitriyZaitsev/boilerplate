@@ -13,7 +13,7 @@ import rx.subscriptions.Subscriptions;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-13, 22:40
  */
-public abstract class UseCase {
+abstract class UseCase<P, R> {
   private final ExecutionThread     mExecutionThread;
   private final PostExecutionThread mPostExecutionThread;
   private Subscription mSubscription = Subscriptions.empty();
@@ -23,10 +23,10 @@ public abstract class UseCase {
     mPostExecutionThread = postExecutionThread;
   }
 
-  protected abstract Observable createObservable();
+  protected abstract Observable<R> createObservable(P param);
 
-  @SuppressWarnings("unchecked") public void execute(Subscriber subscriber) {
-    mSubscription = createObservable().subscribeOn(mExecutionThread.getScheduler())
+  public final void execute(Subscriber<? super R> subscriber, P param) {
+    mSubscription = createObservable(param).subscribeOn(mExecutionThread.getScheduler())
         .observeOn(mPostExecutionThread.getScheduler())
         .subscribe(subscriber);
   }
