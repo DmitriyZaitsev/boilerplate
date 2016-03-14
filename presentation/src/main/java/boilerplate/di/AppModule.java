@@ -8,10 +8,10 @@ import boilerplate.domain.repository.Repository;
 import boilerplate.domain.interactor.GetRepositoriesUseCase;
 import boilerplate.domain.interactor.UseCase;
 import boilerplate.presentation.presenter.MainScreenPresenter;
-import boilerplate.presentation.presenter.MainScreenPresenterImpl;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Named;
+import javax.inject.Provider;
 import javax.inject.Singleton;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -49,7 +49,7 @@ public final class AppModule {
     return AndroidSchedulers::mainThread;
   }
 
-  @Provides MainScreenPresenter provideMainScreenPresenter(MainScreenPresenterImpl presenter) {
-    return presenter;
+  @Provides MainScreenPresenter provideMainScreenPresenter(@Named("getRepositories") Provider<UseCase> useCase) {
+    return new MainScreenPresenter(useCase);
   }
 }
