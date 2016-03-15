@@ -7,12 +7,16 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import boilerplate.R;
+import android.widget.LinearLayout;
+import boilerplate.BoilerplateApp;
 import boilerplate.databinding.ListItemBinding;
+import boilerplate.databinding.ViewRepositoriesContentBinding;
 import boilerplate.presentation.model.Repository;
+import boilerplate.presentation.presenter.MainScreenPresenter;
+import boilerplate.presentation.view.MainScreenView;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -20,9 +24,10 @@ import java.util.List;
  * @author Dmitriy Zaitsev
  * @since 2016-Mar-15, 20:30
  */
-public final class RepositoriesView extends FrameLayout {
-  private final RecyclerView        mRecyclerView;
-  private       RepositoriesAdapter mAdapter;
+public final class RepositoriesView extends LinearLayout implements MainScreenView {
+  private final RepositoriesAdapter            mAdapter;
+  private final ViewRepositoriesContentBinding mBinding;
+  @Inject       MainScreenPresenter            mPresenter;
 
   public RepositoriesView(final Context context) {
     this(context, null);
@@ -34,14 +39,32 @@ public final class RepositoriesView extends FrameLayout {
 
   public RepositoriesView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
     super(context, attrs, defStyleAttr);
-    View.inflate(context, R.layout.content_main, this);
-    mRecyclerView = (RecyclerView) findViewById(R.id.repositories_list);
-    mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+    setOrientation(VERTICAL);
+    (((BoilerplateApp) context.getApplicationContext()).getComponent()).inject(this);
+    mBinding = ViewRepositoriesContentBinding.inflate(LayoutInflater.from(context), this, true);
     mAdapter = new RepositoriesAdapter(new ArrayList<>());
-    mRecyclerView.setAdapter(mAdapter);
+    mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+    mBinding.recyclerView.setAdapter(mAdapter);
+    mBinding.button.setOnClickListener(this::onGetRepositoriesButtonClick);
   }
 
-  public void setItems(List<Repository> repositories) {
+  @Override protected void onAttachedToWindow() {
+    super.onAttachedToWindow();
+    mPresenter.takeView(this);
+  }
+
+  @Override protected void onDetachedFromWindow() {
+    mPresenter.dropView();
+    super.onDetachedFromWindow();
+  }
+
+  public void onGetRepositoriesButtonClick(View v) {
+    mPresenter.getRepositories(mBinding.editText.getText()
+        .toString()
+        .trim());
+  }
+
+  @Override public void setRepositories(final List<Repository> repositories) {
     mAdapter.setItems(repositories);
     mAdapter.notifyDataSetChanged();
   }
