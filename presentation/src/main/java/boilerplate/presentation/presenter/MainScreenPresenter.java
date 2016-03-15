@@ -3,10 +3,12 @@ package boilerplate.presentation.presenter;
 import boilerplate.domain.dto.RepositoryDto;
 import boilerplate.domain.interactor.GetRepositoriesUseCase;
 import boilerplate.presentation.PresentationDataMapper;
-import boilerplate.presentation.model.Repository;
 import boilerplate.presentation.view.MainScreenView;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Provider;
+import rx.Observable;
 import rx.Subscriber;
 
 /**
@@ -27,7 +29,7 @@ public final class MainScreenPresenter extends Presenter<MainScreenView> {
     useCase.execute(new GetRepositoriesSubscriber(getView()), userName);
   }
 
-  static class GetRepositoriesSubscriber extends Subscriber<RepositoryDto> {
+  static class GetRepositoriesSubscriber extends Subscriber<List<RepositoryDto>> {
     private MainScreenView mView;
 
     public GetRepositoriesSubscriber(final MainScreenView view) {
@@ -38,12 +40,14 @@ public final class MainScreenPresenter extends Presenter<MainScreenView> {
     }
 
     @Override public void onError(final Throwable t) {
-      mView.setText(t.getMessage());
+      mView.setRepositories(new ArrayList<>());
     }
 
-    @Override public void onNext(final RepositoryDto r) {
-      final Repository repository = PresentationDataMapper.toRepository(r);
-      mView.setText(repository.toString());
+    @Override public void onNext(final List<RepositoryDto> r) {
+      Observable.from(r)
+          .map(PresentationDataMapper::toRepository)
+          .toList()
+          .subscribe(repositories -> mView.setRepositories(repositories));
     }
   }
 }

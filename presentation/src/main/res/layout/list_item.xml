@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <data>
+
+    <import type="java.lang.String" />
+
+    <variable
+      name="repository"
+      type="boilerplate.presentation.model.Repository" />
+  </data>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@{repository.name}" />
+
+    <TextView
+      android:id="@+id/owner"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@{repository.owner.login}" />
+
+    <TextView
+      android:id="@+id/description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@{repository.description}" />
+
+    <TextView
+      android:id="@+id/watchers"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@{String.valueOf(repository.watchers)}" />
+
+    <TextView
+      android:id="@+id/forks"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@{String.valueOf(repository.forks)}" />
+
+    <TextView
+      android:id="@+id/updatedAt"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@{repository.updatedAt}" />
+
+    <TextView
+      android:id="@+id/htmlUrl"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@{repository.htmlUrl}" />
+  </LinearLayout>
+</layout>

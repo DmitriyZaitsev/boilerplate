@@ -1,7 +1,7 @@
 package boilerplate.presentation.model;
 
 import lombok.Builder;
-import lombok.Value;
+import lombok.ToString;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -9,9 +9,9 @@ import lombok.Value;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-22, 23:08
  */
-@Value
 @Builder
+@ToString
 public final class Owner {
-  String avatarUrl;
-  String login;
+  public final String avatarUrl;
+  public final String login;
 }

@@ -1,7 +1,7 @@
 package boilerplate.presentation.model;
 
 import lombok.Builder;
-import lombok.Value;
+import lombok.ToString;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -9,14 +9,14 @@ import lombok.Value;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-22, 23:07
  */
-@Value
 @Builder
+@ToString
 public final class Repository {
-  String name;
-  Owner  owner;
-  String description;
-  long   watchers;
-  long   forks;
-  String htmlUrl;
-  String updatedAt;
+  public final String name;
+  public final Owner  owner;
+  public final String description;
+  public final long   watchers;
+  public final long   forks;
+  public final String htmlUrl;
+  public final String updatedAt;
 }
