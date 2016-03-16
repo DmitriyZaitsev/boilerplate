@@ -19,14 +19,27 @@ import rx.Subscriber;
  */
 public final class MainScreenPresenter extends Presenter<MainScreenView> {
   private final Provider<GetRepositoriesUseCase> mGetRepositoriesUseCaseProvider;
+  private       GetRepositoriesUseCase           mCurrentUseCase;
 
   @Inject public MainScreenPresenter(Provider<GetRepositoriesUseCase> getRepositoriesUseCaseProvider) {
     mGetRepositoriesUseCaseProvider = getRepositoriesUseCaseProvider;
   }
 
+  void cancelCurrentUseCase() {
+    if (mCurrentUseCase != null) {
+      mCurrentUseCase.unsubscribe();
+    }
+  }
+
+  @Override public void dropView() {
+    super.dropView();
+    cancelCurrentUseCase();
+  }
+
   public void getRepositories(String userName) {
-    final GetRepositoriesUseCase useCase = mGetRepositoriesUseCaseProvider.get();
-    useCase.execute(new GetRepositoriesSubscriber(getView()), userName);
+    cancelCurrentUseCase();
+    mCurrentUseCase = mGetRepositoriesUseCaseProvider.get();
+    mCurrentUseCase.execute(new GetRepositoriesSubscriber(getView()), userName);
   }
 
   static class GetRepositoriesSubscriber extends Subscriber<List<RepositoryDto>> {
