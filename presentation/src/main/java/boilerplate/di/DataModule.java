@@ -14,7 +14,6 @@ import lombok.val;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.BaseUrl;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -27,8 +26,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public final class DataModule {
-  @NonNull @Provides @Singleton BaseUrl provideBaseUrl() {
-    return () -> HttpUrl.parse(BuildConfig.BASE_URL_GITHUB);
+  @NonNull @Provides @Singleton HttpUrl provideBaseUrl() {
+    return HttpUrl.parse(BuildConfig.BASE_URL_GITHUB);
   }
 
   @Provides @Singleton GitHubApi provideGitHubApi(Retrofit retrofit) {
@@ -50,7 +49,7 @@ public final class DataModule {
     return repository;
   }
 
-  @NonNull @Provides @Singleton Retrofit provideRetrofit(OkHttpClient client, BaseUrl baseUrl) {
+  @NonNull @Provides @Singleton Retrofit provideRetrofit(OkHttpClient client, HttpUrl baseUrl) {
     return new Retrofit.Builder().baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
