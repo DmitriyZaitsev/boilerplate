@@ -53,6 +53,7 @@ dependencies {
   compile project(':domain')
   compile project(':data')
   compile dependencies.appCompat
+  compile dependencies.cardView
   compile dependencies.supportV4
   compile dependencies.dagger
   compile dependencies.supportDesign

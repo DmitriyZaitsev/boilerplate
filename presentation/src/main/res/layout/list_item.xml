@@ -10,51 +10,64 @@
       type="boilerplate.presentation.model.Repository" />
   </data>
 
-  <LinearLayout
+  <android.support.v7.widget.CardView android:id="@+id/card_view"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_gravity="center"
+    card_view:cardCornerRadius="4dp"
+    card_view:contentPadding="4dp">
 
-    <TextView
-      android:id="@+id/name"
+    <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@{repository.name}" />
+      android:layout_height="match_parent"
+      android:orientation="vertical">
 
-    <TextView
-      android:id="@+id/owner"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@{repository.owner.login}" />
+      <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{repository.name}"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
-    <TextView
-      android:id="@+id/description"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@{repository.description}" />
+      <TextView
+        android:id="@+id/owner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{repository.owner.login}" />
 
-    <TextView
-      android:id="@+id/watchers"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@{String.valueOf(repository.watchers)}" />
+      <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{repository.description}"
+        android:textStyle="italic" />
 
-    <TextView
-      android:id="@+id/forks"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@{String.valueOf(repository.forks)}" />
+      <TextView
+        android:id="@+id/watchers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{String.valueOf(repository.watchers)}" />
 
-    <TextView
-      android:id="@+id/updatedAt"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@{repository.updatedAt}" />
+      <TextView
+        android:id="@+id/forks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{String.valueOf(repository.forks)}" />
 
-    <TextView
-      android:id="@+id/htmlUrl"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@{repository.htmlUrl}" />
-  </LinearLayout>
+      <TextView
+        android:id="@+id/updatedAt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{repository.updatedAt}" />
+
+      <TextView
+        android:id="@+id/htmlUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{repository.htmlUrl}" />
+
+    </LinearLayout>
+  </android.support.v7.widget.CardView>
 </layout>
