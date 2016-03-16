@@ -1,12 +1,11 @@
 package boilerplate.domain.interactor;
 
 import boilerplate.domain.dto.RepositoryDto;
-import boilerplate.domain.executor.ExecutionThread;
-import boilerplate.domain.executor.PostExecutionThread;
 import boilerplate.domain.repository.Repository;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
+import rx.Scheduler;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -17,9 +16,9 @@ import rx.Observable;
 public final class GetRepositoriesUseCase extends UseCase<String, List<RepositoryDto>> {
   private final Repository mRepository;
 
-  @Inject public GetRepositoriesUseCase(Repository repository, ExecutionThread executionThread,
-      PostExecutionThread postExecutionThread) {
-    super(executionThread, postExecutionThread);
+  @Inject
+  public GetRepositoriesUseCase(Repository repository, Scheduler jobScheduler, Scheduler postExecutionScheduler) {
+    super(jobScheduler, postExecutionScheduler);
     mRepository = repository;
   }
 

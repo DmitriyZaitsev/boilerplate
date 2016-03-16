@@ -1,8 +1,7 @@
 package boilerplate.domain.interactor;
 
-import boilerplate.domain.executor.ExecutionThread;
-import boilerplate.domain.executor.PostExecutionThread;
 import rx.Observable;
+import rx.Scheduler;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.subscriptions.Subscriptions;
@@ -14,20 +13,20 @@ import rx.subscriptions.Subscriptions;
  * @since 2016-Feb-13, 22:40
  */
 abstract class UseCase<P, R> {
-  private final ExecutionThread     mExecutionThread;
-  private final PostExecutionThread mPostExecutionThread;
+  private final Scheduler mJobScheduler;
+  private final Scheduler mPostExecutionScheduler;
   private Subscription mSubscription = Subscriptions.empty();
 
-  UseCase(ExecutionThread executionThread, PostExecutionThread postExecutionThread) {
-    mExecutionThread = executionThread;
-    mPostExecutionThread = postExecutionThread;
+  UseCase(Scheduler jobScheduler, Scheduler postExecutionScheduler) {
+    mJobScheduler = jobScheduler;
+    mPostExecutionScheduler = postExecutionScheduler;
   }
 
   protected abstract Observable<R> createObservable(P param);
 
   public final void execute(Subscriber<? super R> subscriber, P param) {
-    mSubscription = createObservable(param).subscribeOn(mExecutionThread.getScheduler())
-        .observeOn(mPostExecutionThread.getScheduler())
+    mSubscription = createObservable(param).subscribeOn(mJobScheduler)
+        .observeOn(mPostExecutionScheduler)
         .subscribe(subscriber);
   }
 
