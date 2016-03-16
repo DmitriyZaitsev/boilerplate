@@ -18,7 +18,6 @@ ext {
              versionName      : '0.1.0']
 
   // Libraries:
-  butterKnifeVersion = '8.0.0-SNAPSHOT'
   daggerVersion = '2.0.2'
   glideVersion = '3.6.1'
   gsonVersion = '2.6.1'
@@ -39,8 +38,6 @@ ext {
   dependencies = [
       adapterRxJava      : "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}",
       appCompat          : "com.android.support:appcompat-v7:${supportVersion}",
-      butterKnife        : "com.jakewharton:butterknife:${butterKnifeVersion}",
-      butterKnifeCompiler: "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
       cardView           : "com.android.support:cardview-v7:${supportVersion}",
       converterGson      : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
       dagger             : "com.google.dagger:dagger:${daggerVersion}",
