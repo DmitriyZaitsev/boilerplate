@@ -1,5 +1,5 @@
 //@formatter:off
-package boilerplate.data;
+package boilerplate.data.api;
 
 import boilerplate.data.entity.RepositoriesResponse;
 import retrofit2.adapter.rxjava.Result;

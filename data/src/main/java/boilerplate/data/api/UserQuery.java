@@ -1,4 +1,4 @@
-package boilerplate.data;
+package boilerplate.data.api;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~

@@ -2,7 +2,7 @@ package boilerplate.di;
 
 import android.support.annotation.NonNull;
 import boilerplate.BuildConfig;
-import boilerplate.data.GitHubApi;
+import boilerplate.data.api.GitHubApi;
 import boilerplate.data.GitHubRepository;
 import boilerplate.domain.repository.Repository;
 import com.facebook.stetho.okhttp3.StethoInterceptor;

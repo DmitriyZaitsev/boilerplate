@@ -1,7 +1,11 @@
 package boilerplate.data;
 
-import boilerplate.domain.repository.Repository;
+import boilerplate.data.api.GitHubApi;
+import boilerplate.data.api.Order;
+import boilerplate.data.api.Sort;
+import boilerplate.data.api.UserQuery;
 import boilerplate.domain.dto.RepositoryDto;
+import boilerplate.domain.repository.Repository;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
