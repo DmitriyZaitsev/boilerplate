@@ -1,4 +1,4 @@
-package boilerplate.di;
+package boilerplate.common.di;
 
 import android.support.annotation.NonNull;
 import boilerplate.BuildConfig;
