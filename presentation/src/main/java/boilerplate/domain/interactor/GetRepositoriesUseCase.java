@@ -1,7 +1,7 @@
 package boilerplate.domain.interactor;
 
 import boilerplate.domain.dto.RepositoryDto;
-import boilerplate.domain.repository.Repository;
+import boilerplate.domain.repository.DataRepository;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -14,10 +14,10 @@ import rx.Scheduler;
  * @since 2016-Feb-13, 22:40
  */
 public final class GetRepositoriesUseCase extends UseCase<String, List<RepositoryDto>> {
-  private final Repository mRepository;
+  private final DataRepository mRepository;
 
   @Inject
-  public GetRepositoriesUseCase(Repository repository, Scheduler jobScheduler, Scheduler postExecutionScheduler) {
+  public GetRepositoriesUseCase(DataRepository repository, Scheduler jobScheduler, Scheduler postExecutionScheduler) {
     super(jobScheduler, postExecutionScheduler);
     mRepository = repository;
   }

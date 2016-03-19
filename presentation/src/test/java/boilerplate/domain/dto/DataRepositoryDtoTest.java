@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-24, 23:59
  */
-public class RepositoryDtoTest {
+public class DataRepositoryDtoTest {
   private static final String   NAME        = "Daniel Valdez";
   private static final OwnerDto OWNER_DTO   = new OwnerDto("www.example.com", "Steven Marshall");
   private static final String   DESCRIPTION = "Default description";

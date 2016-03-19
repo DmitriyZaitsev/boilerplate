@@ -3,6 +3,7 @@ package boilerplate;
 import android.app.Application;
 import boilerplate.common.di.AppComponent;
 import com.facebook.stetho.Stetho;
+import com.raizlabs.android.dbflow.config.FlowManager;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -23,5 +24,6 @@ public abstract class BoilerplateApp extends Application {
     super.onCreate();
     mComponent = createComponent();
     Stetho.initializeWithDefaults(this);
+    FlowManager.init(this);
   }
 }
