@@ -25,7 +25,7 @@ public final class MainScreenPresenter extends Presenter<MainScreenView> {
     mGetRepositoriesUseCaseProvider = getRepositoriesUseCaseProvider;
   }
 
-  void cancelCurrentUseCase() {
+  private void cancelCurrentUseCase() {
     if (mCurrentUseCase != null) {
       mCurrentUseCase.unsubscribe();
     }
@@ -43,7 +43,7 @@ public final class MainScreenPresenter extends Presenter<MainScreenView> {
   }
 
   static class GetRepositoriesSubscriber extends Subscriber<List<RepositoryDto>> {
-    private MainScreenView mView;
+    private final MainScreenView mView;
 
     public GetRepositoriesSubscriber(final MainScreenView view) {
       mView = view;
@@ -60,7 +60,7 @@ public final class MainScreenPresenter extends Presenter<MainScreenView> {
       Observable.from(r)
           .map(PresentationDataMapper::toRepository)
           .toList()
-          .subscribe(repositories -> mView.setRepositories(repositories));
+          .subscribe(mView::setRepositories);
     }
   }
 }

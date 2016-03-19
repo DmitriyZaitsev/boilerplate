@@ -58,7 +58,7 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
     super.onDetachedFromWindow();
   }
 
-  public void onGetRepositoriesButtonClick(View v) {
+  private void onGetRepositoriesButtonClick(View v) {
     mPresenter.getRepositories(mBinding.editText.getText()
         .toString()
         .trim());

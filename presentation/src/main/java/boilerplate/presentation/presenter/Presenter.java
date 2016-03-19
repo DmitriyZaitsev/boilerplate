@@ -11,15 +11,15 @@ import boilerplate.presentation.view.View;
 abstract class Presenter<V extends View> {
   private V mView;
 
-  public void dropView() {
+  void dropView() {
     mView = null;
+  }
+
+  final V getView() {
+    return mView;
   }
 
   public void takeView(final V view) {
     mView = view;
-  }
-
-  protected V getView() {
-    return mView;
   }
 }

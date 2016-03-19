@@ -17,7 +17,7 @@ public class OwnerDtoTest {
   private static final String LOGIN      = "Steven Marshall";
   private OwnerDto mOwnerDto;
 
-  @Before public void setUp() throws Exception {
+  @Before public void setUp() {
     mOwnerDto = OwnerDto.builder()
         .avatarUrl(AVATAR_URL)
         .login(LOGIN)

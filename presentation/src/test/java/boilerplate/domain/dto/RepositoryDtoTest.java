@@ -22,7 +22,7 @@ public class RepositoryDtoTest {
   private static final String   UPDATED_AT  = "_";
   private RepositoryDto mRepositoryDto;
 
-  @Before public void setUp() throws Exception {
+  @Before public void setUp() {
     mRepositoryDto = RepositoryDto.builder()
         .name(NAME)
         .owner(OWNER_DTO)

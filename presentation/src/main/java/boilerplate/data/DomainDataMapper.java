@@ -11,7 +11,7 @@ import boilerplate.domain.dto.RepositoryDto;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-22, 22:35
  */
-public final class DomainDataMapper {
+final class DomainDataMapper {
   public static RepositoryDto toRepositoryDto(Repository entity) {
     return RepositoryDto.builder()
         .name(entity.getName())
@@ -24,7 +24,7 @@ public final class DomainDataMapper {
         .build();
   }
 
-  public static OwnerDto toOwnerDto(Owner entity) {
+  private static OwnerDto toOwnerDto(Owner entity) {
     return OwnerDto.builder()
         .login(entity.getLogin())
         .avatarUrl(entity.getAvatarUrl())

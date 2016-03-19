@@ -12,7 +12,7 @@ import boilerplate.presentation.model.Repository;
  * @since 2016-Feb-22, 23:09
  */
 public final class PresentationDataMapper {
-  public static Owner toOwner(OwnerDto dto) {
+  private static Owner toOwner(OwnerDto dto) {
     return Owner.builder()
         .avatarUrl(dto.getAvatarUrl())
         .login(dto.getLogin())
