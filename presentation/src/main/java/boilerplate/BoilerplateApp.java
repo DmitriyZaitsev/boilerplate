@@ -1,7 +1,7 @@
 package boilerplate;
 
 import android.app.Application;
-import boilerplate.di.AppComponent;
+import boilerplate.common.di.AppComponent;
 import com.facebook.stetho.Stetho;
 
 /**

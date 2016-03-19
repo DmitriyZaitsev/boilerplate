@@ -1,8 +1,8 @@
 package boilerplate;
 
-import boilerplate.di.AppComponent;
-import boilerplate.di.AppModule;
-import boilerplate.di.DaggerAppComponent;
+import boilerplate.common.di.AppComponent;
+import boilerplate.common.di.AppModule;
+import boilerplate.common.di.DaggerAppComponent;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~

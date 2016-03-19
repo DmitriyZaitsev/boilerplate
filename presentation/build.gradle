@@ -50,26 +50,28 @@ dependencies {
   apt dependencies.daggerCompiler
   apt dependencies.lombok
   compile fileTree(dir: 'libs', include: ['*.jar'])
-  compile project(':domain')
-  compile project(':data')
+  compile dependencies.adapterRxJava
   compile dependencies.appCompat
   compile dependencies.cardView
-  compile dependencies.supportV4
+  compile dependencies.converterGson
   compile dependencies.dagger
-  compile dependencies.supportDesign
+  compile dependencies.gson
+  compile dependencies.inject
   compile dependencies.loggingInterceptor
   compile dependencies.lombok
-  compile dependencies.retrofit
-  compile dependencies.converterGson
   compile dependencies.okHttp
-  compile dependencies.adapterRxJava
+  compile dependencies.retrofit
   compile dependencies.rxAndroid
   compile dependencies.rxJava
-  compile dependencies.stetho
   compile dependencies.stethoOkHttp
+  compile dependencies.stetho
+  compile dependencies.supportDesign
+  compile dependencies.supportV4
   provided dependencies.jsr250Api
 
   def testDependencies = rootProject.ext.testDependencies
+  testCompile testDependencies.assertj
   testCompile testDependencies.jUnit
+  testCompile testDependencies.mockito
 }
 //@formatter:on

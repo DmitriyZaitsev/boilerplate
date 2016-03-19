@@ -1,4 +1,4 @@
-package boilerplate.di;
+package boilerplate.common.di;
 
 import boilerplate.presentation.view.ui.RepositoriesView;
 import dagger.Component;
