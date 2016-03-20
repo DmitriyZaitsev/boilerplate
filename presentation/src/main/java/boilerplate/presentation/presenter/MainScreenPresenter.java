@@ -19,10 +19,13 @@ import rx.Subscriber;
  */
 public final class MainScreenPresenter extends Presenter<MainScreenView> {
   private final Provider<GetRepositoriesUseCase> mGetRepositoriesUseCaseProvider;
+  private final PresentationDataMapper           mDataMapper;
   private       GetRepositoriesUseCase           mCurrentUseCase;
 
-  @Inject public MainScreenPresenter(Provider<GetRepositoriesUseCase> getRepositoriesUseCaseProvider) {
+  @Inject public MainScreenPresenter(Provider<GetRepositoriesUseCase> getRepositoriesUseCaseProvider,
+      PresentationDataMapper dataMapper) {
     mGetRepositoriesUseCaseProvider = getRepositoriesUseCaseProvider;
+    mDataMapper = dataMapper;
   }
 
   private void cancelCurrentUseCase() {
@@ -39,14 +42,16 @@ public final class MainScreenPresenter extends Presenter<MainScreenView> {
   public void getRepositories(String userName) {
     cancelCurrentUseCase();
     mCurrentUseCase = mGetRepositoriesUseCaseProvider.get();
-    mCurrentUseCase.execute(new GetRepositoriesSubscriber(getView()), userName);
+    mCurrentUseCase.execute(new GetRepositoriesSubscriber(getView(), mDataMapper), userName);
   }
 
   static class GetRepositoriesSubscriber extends Subscriber<List<RepositoryDto>> {
-    private final MainScreenView mView;
+    private final MainScreenView         mView;
+    private final PresentationDataMapper mDataMapper;
 
-    public GetRepositoriesSubscriber(final MainScreenView view) {
+    public GetRepositoriesSubscriber(final MainScreenView view, final PresentationDataMapper dataMapper) {
       mView = view;
+      mDataMapper = dataMapper;
     }
 
     @Override public void onCompleted() {
@@ -58,7 +63,7 @@ public final class MainScreenPresenter extends Presenter<MainScreenView> {
 
     @Override public void onNext(final List<RepositoryDto> r) {
       Observable.from(r)
-          .map(PresentationDataMapper::toRepository)
+          .map(mDataMapper::toRepository)
           .toList()
           .subscribe(mView::setRepositories);
     }
