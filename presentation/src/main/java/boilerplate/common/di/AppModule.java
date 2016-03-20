@@ -3,7 +3,7 @@ package boilerplate.common.di;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import boilerplate.domain.interactor.GetRepositoriesUseCase;
-import boilerplate.domain.repository.Repository;
+import boilerplate.domain.repository.DataRepository;
 import boilerplate.presentation.presenter.MainScreenPresenter;
 import dagger.Module;
 import dagger.Provides;
@@ -32,7 +32,7 @@ public final class AppModule {
     return mContext;
   }
 
-  @Provides GetRepositoriesUseCase provideGetRepositoriesUseCase(Repository repository,
+  @Provides GetRepositoriesUseCase provideGetRepositoriesUseCase(DataRepository repository,
       @Named("io") Scheduler jobScheduler, @Named("mainThread") Scheduler postExecutionScheduler) {
     return new GetRepositoriesUseCase(repository, jobScheduler, postExecutionScheduler);
   }

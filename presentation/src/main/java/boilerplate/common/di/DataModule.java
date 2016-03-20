@@ -3,8 +3,10 @@ package boilerplate.common.di;
 import android.support.annotation.NonNull;
 import boilerplate.BuildConfig;
 import boilerplate.data.api.GitHubApi;
-import boilerplate.data.GitHubRepository;
-import boilerplate.domain.repository.Repository;
+import boilerplate.data.DataRepositoryImpl;
+import boilerplate.data.cache.DbFlowLocalCache;
+import boilerplate.data.cache.LocalCache;
+import boilerplate.domain.repository.DataRepository;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import dagger.Module;
 import dagger.Provides;
@@ -45,7 +47,7 @@ public final class DataModule {
         .build();
   }
 
-  @NonNull @Provides @Singleton Repository provideRepository(GitHubRepository repository) {
+  @NonNull @Provides @Singleton DataRepository provideRepository(DataRepositoryImpl repository) {
     return repository;
   }
 
@@ -55,5 +57,9 @@ public final class DataModule {
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
         .client(client)
         .build();
+  }
+
+  @NonNull @Provides @Singleton LocalCache provideLocalCache(DbFlowLocalCache cache) {
+    return cache;
   }
 }

@@ -26,7 +26,7 @@ android {
           'proguard-rules-glide.pro', 'proguard-rules-butterknife.pro'
     }
     debug {
-      testCoverageEnabled true
+      //testCoverageEnabled true
     }
   }
   lintOptions {
@@ -49,12 +49,15 @@ dependencies {
   def dependencies = rootProject.ext.dependencies
   apt dependencies.daggerCompiler
   apt dependencies.lombok
+  apt dependencies.dbFlowProcessor
   compile fileTree(dir: 'libs', include: ['*.jar'])
   compile dependencies.adapterRxJava
   compile dependencies.appCompat
   compile dependencies.cardView
   compile dependencies.converterGson
   compile dependencies.dagger
+  compile dependencies.dbFlowCore
+  compile dependencies.dbFlow
   compile dependencies.gson
   compile dependencies.inject
   compile dependencies.loggingInterceptor
