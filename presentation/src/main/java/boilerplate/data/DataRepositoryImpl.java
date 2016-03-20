@@ -38,7 +38,7 @@ public final class DataRepositoryImpl implements DataRepository {
   }
 
   @Override public Observable<List<RepositoryDto>> getUsersRepositories(String user) {
-    return mApi.getRepositories(new UserQuery(user), Sort.UPDATED, Order.ASC)
+    return mApi.getRepositories(new UserQuery(user), Sort.UPDATED, Order.DESC)
         .map(Result::response)
         .map(Response::body)
         .map(RepositoriesResponse::getItems)
