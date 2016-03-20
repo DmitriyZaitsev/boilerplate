@@ -58,6 +58,7 @@ dependencies {
   compile dependencies.dagger
   compile dependencies.dbFlowCore
   compile dependencies.dbFlow
+  compile dependencies.glide
   compile dependencies.gson
   compile dependencies.inject
   compile dependencies.loggingInterceptor

@@ -12,66 +12,97 @@
 
   <android.support.v7.widget.CardView android:id="@+id/card_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:foreground="?android:attr/selectableItemBackground"
-    card_view:cardCornerRadius="4dp"
-    card_view:cardPreventCornerOverlap="true"
-    card_view:cardUseCompatPadding="true"
-    card_view:contentPadding="4dp">
+    app:cardCornerRadius="4dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="4dp">
 
-    <LinearLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical">
+      android:layout_height="match_parent"
+      android:background="?android:attr/selectableItemBackground"
+      android:clickable="true"
+      android:padding="16dp">
+
+      <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:importantForAccessibility="no"
+        app:imageUrl="@{repository.owner.avatarUrl}" />
 
       <TextView
-        android:id="@+id/name"
-        android:layout_width="match_parent"
+        android:id="@+id/repository_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/avatar"
+        android:layout_toRightOf="@id/avatar"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
         android:text="@{repository.name}"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="?android:attr/textColorPrimary"
         android:textStyle="bold" />
 
       <TextView
-        android:id="@+id/owner"
+        android:id="@+id/repository_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{repository.owner.login}" />
-
-      <TextView
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_below="@id/repository_name"
+        android:layout_toEndOf="@id/avatar"
+        android:layout_toRightOf="@id/avatar"
+        android:ellipsize="end"
+        android:maxLines="3"
         android:text="@{repository.description}"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="14sp"
         android:textStyle="italic" />
 
-      <TextView
-        android:id="@+id/watchers"
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{String.valueOf(repository.watchers)}" />
+        android:layout_below="@id/repository_description"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@id/avatar"
+        android:layout_toRightOf="@id/avatar"
+        android:orientation="horizontal">
 
-      <TextView
-        android:id="@+id/forks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@{String.valueOf(repository.forks)}" />
+        <TextView
+          android:id="@+id/repository_stars"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginRight="16dp"
+          android:drawableLeft="@mipmap/star"
+          android:drawablePadding="4dp"
+          android:drawableStart="@mipmap/star"
+          android:gravity="center"
+          android:text="@{String.valueOf(repository.watchers)}"
+          android:textColor="?android:attr/textColorPrimary"
+          android:textSize="12sp" />
 
-      <TextView
-        android:id="@+id/updatedAt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@{repository.updatedAt}" />
-
-      <TextView
-        android:id="@+id/htmlUrl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@{repository.htmlUrl}" />
-
-    </LinearLayout>
+        <TextView
+          android:id="@+id/repository_forks"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:drawableLeft="@mipmap/fork"
+          android:drawablePadding="4dp"
+          android:drawableStart="@mipmap/fork"
+          android:gravity="center"
+          android:text="@{String.valueOf(repository.forks)}"
+          android:textColor="?android:attr/textColorPrimary"
+          android:textSize="12sp" />
+      </LinearLayout>
+    </RelativeLayout>
   </android.support.v7.widget.CardView>
 </layout>

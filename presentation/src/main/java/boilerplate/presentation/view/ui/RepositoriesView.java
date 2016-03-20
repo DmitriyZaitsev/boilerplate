@@ -1,19 +1,23 @@
 package boilerplate.presentation.view.ui;
 
 import android.content.Context;
+import android.databinding.BindingAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import boilerplate.BoilerplateApp;
+import boilerplate.R;
 import boilerplate.databinding.ListItemBinding;
 import boilerplate.databinding.ViewRepositoriesContentBinding;
 import boilerplate.presentation.model.Repository;
 import boilerplate.presentation.presenter.MainScreenPresenter;
 import boilerplate.presentation.view.MainScreenView;
+import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -69,11 +73,19 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
     mAdapter.notifyDataSetChanged();
   }
 
-  static class RepositoriesAdapter extends RecyclerView.Adapter<RepositoriesAdapter.MyViewHolder> {
+  public static class RepositoriesAdapter extends RecyclerView.Adapter<RepositoriesAdapter.MyViewHolder> {
     private final List<Repository> mRepositories;
 
     RepositoriesAdapter(List<Repository> repositories) {
       mRepositories = new ArrayList<>(repositories);
+    }
+
+    @BindingAdapter("imageUrl") public static void setImageUrl(ImageView imageView, String url) {
+      Context context = imageView.getContext();
+      Glide.with(context)
+          .load(url)
+          .placeholder(R.mipmap.ic_launcher)
+          .into(imageView);
     }
 
     @Override public MyViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
