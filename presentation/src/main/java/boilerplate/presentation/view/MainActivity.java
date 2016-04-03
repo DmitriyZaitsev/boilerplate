@@ -8,13 +8,21 @@ import boilerplate.presentation.view.flow.MyKeyChanger;
 import flow.Flow;
 import flow.KeyDispatcher;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainRouter {
 
   @Override protected void attachBaseContext(final Context newBase) {
     super.attachBaseContext(Flow.configure(newBase, this)
         .dispatcher(KeyDispatcher.configure(this, new MyKeyChanger(this))
             .build())
         .install());
+  }
+
+  @Override public void goToDetailsScreen() {
+
+  }
+
+  @Override public void goToMainScreen() {
+
   }
 
   @Override protected void onCreate(Bundle savedInstanceState) {

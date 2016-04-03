@@ -3,6 +3,7 @@ package boilerplate.presentation.presenter;
 import boilerplate.domain.dto.RepositoryDto;
 import boilerplate.domain.interactor.GetRepositoriesUseCase;
 import boilerplate.presentation.PresentationDataMapper;
+import boilerplate.presentation.view.MainRouter;
 import boilerplate.presentation.view.MainScreenView;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import rx.Subscriber;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-13, 22:31
  */
-public final class MainScreenPresenter extends Presenter<MainScreenView> {
+public final class MainScreenPresenter extends Presenter<MainScreenView, MainRouter> {
   private final Provider<GetRepositoriesUseCase> mGetRepositoriesUseCaseProvider;
   private final PresentationDataMapper           mDataMapper;
   private       GetRepositoriesUseCase           mCurrentUseCase;
