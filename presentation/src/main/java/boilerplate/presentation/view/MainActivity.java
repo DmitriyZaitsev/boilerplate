@@ -12,12 +12,13 @@ import flow.KeyDispatcher;
 
 public class MainActivity extends AppCompatActivity implements MainRouter {
 
-  public ViewAnimator rootView;
+  private ScreenKeyChanger mKeyChanger;
 
   @Override protected void attachBaseContext(final Context newBase) {
+    mKeyChanger = new ScreenKeyChanger();
     super.attachBaseContext(Flow.configure(newBase, this)
         .defaultKey(new Keys.MainScreen())
-        .dispatcher((KeyDispatcher.configure(this, new ScreenKeyChanger(this))).build())
+        .dispatcher((KeyDispatcher.configure(this, mKeyChanger)).build())
         .install());
   }
 
@@ -32,6 +33,6 @@ public class MainActivity extends AppCompatActivity implements MainRouter {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    rootView = (ViewAnimator) findViewById(R.id.rootView);
+    mKeyChanger.setContainer((ViewAnimator) findViewById(R.id.rootView));
   }
 }

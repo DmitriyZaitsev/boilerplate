@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
-import boilerplate.presentation.view.MainActivity;
+import android.widget.ViewAnimator;
 import flow.Direction;
 import flow.KeyChanger;
 import flow.State;
@@ -19,16 +19,12 @@ import java.util.Map;
  */
 public class ScreenKeyChanger extends KeyChanger {
 
-  private final MainActivity mMainActivity;
-
-  public ScreenKeyChanger(MainActivity mainActivity) {
-    mMainActivity = mainActivity;
-  }
+  private ViewAnimator mContainer;
 
   @Override
   public void changeKey(@Nullable final State outgoingState, final State incomingState, final Direction direction,
       final Map<Object, Context> incomingContexts, final TraversalCallback callback) {
-    final View originView = mMainActivity.rootView.getCurrentView();
+    final View originView = mContainer.getCurrentView();
     if (originView != null && outgoingState != null) {
       outgoingState.save(originView);
     }
@@ -36,13 +32,17 @@ public class ScreenKeyChanger extends KeyChanger {
     final Object key = incomingState.getKey();
     final Layout layout = (key.getClass()).getAnnotation(Layout.class);
     final Context context = incomingContexts.get(key);
-    final View destinationView = (LayoutInflater.from(context)).inflate(layout.value(), mMainActivity.rootView, false);
+    final View destinationView = (LayoutInflater.from(context)).inflate(layout.value(), mContainer, false);
     incomingState.restore(destinationView);
 
-    mMainActivity.rootView.addView(destinationView);
-    mMainActivity.rootView.showNext();
-    mMainActivity.rootView.removeView(originView);
+    mContainer.addView(destinationView);
+    mContainer.showNext();
+    mContainer.removeView(originView);
 
     callback.onTraversalCompleted();
+  }
+
+  public void setContainer(final ViewAnimator container) {
+    mContainer = container;
   }
 }
