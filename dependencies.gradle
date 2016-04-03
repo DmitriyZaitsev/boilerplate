@@ -24,6 +24,7 @@ ext {
   assertJVersion   = '1.7.1'
   daggerVersion    = '2.1'
   dbFlowVersion    = '3.0.0-beta5'
+  flowVersion      = '1.0.0-alpha'
   glideVersion     = '3.7.0'
   gsonVersion      = '2.6.2'
   injectVersion    = '1'
@@ -53,6 +54,7 @@ ext {
       dbFlow            : "com.github.Raizlabs.DBFlow:dbflow:${dbFlowVersion}",
       daggerCompiler    : "com.google.dagger:dagger-compiler:${daggerVersion}",
       dagger            : "com.google.dagger:dagger:${daggerVersion}",
+      flow              : "com.squareup.flow:flow:${flowVersion}",
       loggingInterceptor: "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
       okHttp            : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
       adapterRxJava     : "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}",

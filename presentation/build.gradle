@@ -58,6 +58,7 @@ dependencies {
   compile dependencies.converterGson
   compile dependencies.dagger
   compile dependencies.dbFlowCore
+  compile dependencies.flow
   compile dependencies.dbFlow
   compile dependencies.glide
   compile dependencies.gson
