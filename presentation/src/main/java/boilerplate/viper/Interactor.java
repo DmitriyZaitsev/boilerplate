@@ -1,4 +1,4 @@
-package boilerplate.domain.interactor;
+package boilerplate.viper;
 
 import rx.Observable;
 import rx.Scheduler;
@@ -12,19 +12,19 @@ import rx.subscriptions.Subscriptions;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-13, 22:40
  */
-abstract class UseCase<P, R> {
+public abstract class Interactor<Param, Result> {
   private final Scheduler mJobScheduler;
   private final Scheduler mPostExecutionScheduler;
   private Subscription mSubscription = Subscriptions.empty();
 
-  UseCase(Scheduler jobScheduler, Scheduler postExecutionScheduler) {
+  protected Interactor(Scheduler jobScheduler, Scheduler postExecutionScheduler) {
     mJobScheduler = jobScheduler;
     mPostExecutionScheduler = postExecutionScheduler;
   }
 
-  protected abstract Observable<R> createObservable(P param);
+  protected abstract Observable<Result> createObservable(Param param);
 
-  public final void execute(Subscriber<? super R> subscriber, P param) {
+  public final void execute(Subscriber<? super Result> subscriber, Param param) {
     mSubscription = createObservable(param).subscribeOn(mJobScheduler)
         .observeOn(mPostExecutionScheduler)
         .subscribe(subscriber);

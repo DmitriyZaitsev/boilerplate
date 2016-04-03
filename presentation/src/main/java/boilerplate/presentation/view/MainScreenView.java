@@ -1,5 +1,6 @@
 package boilerplate.presentation.view;
 
+import boilerplate.viper.View;
 import boilerplate.presentation.model.Repository;
 import java.util.List;
 

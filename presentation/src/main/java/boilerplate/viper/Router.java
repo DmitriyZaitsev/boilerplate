@@ -1,4 +1,4 @@
-package boilerplate.presentation.view;
+package boilerplate.viper;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~

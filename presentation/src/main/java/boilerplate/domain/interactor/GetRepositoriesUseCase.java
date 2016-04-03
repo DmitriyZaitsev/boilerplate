@@ -2,6 +2,7 @@ package boilerplate.domain.interactor;
 
 import boilerplate.domain.dto.RepositoryDto;
 import boilerplate.domain.repository.DataRepository;
+import boilerplate.viper.Interactor;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -13,7 +14,7 @@ import rx.Scheduler;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-13, 22:40
  */
-public final class GetRepositoriesUseCase extends UseCase<String, List<RepositoryDto>> {
+public final class GetRepositoriesUseCase extends Interactor<String, List<RepositoryDto>> {
   private final DataRepository mRepository;
 
   @Inject
