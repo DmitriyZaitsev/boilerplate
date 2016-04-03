@@ -1,6 +1,7 @@
 package boilerplate.presentation.view.ui;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,9 +14,10 @@ import android.widget.LinearLayout;
 import boilerplate.BoilerplateApp;
 import boilerplate.R;
 import boilerplate.databinding.ListItemBinding;
-import boilerplate.databinding.ViewRepositoriesContentBinding;
+import boilerplate.databinding.ViewRepositoriesBinding;
 import boilerplate.presentation.model.Repository;
 import boilerplate.presentation.presenter.MainScreenPresenter;
+import boilerplate.presentation.view.MainRouter;
 import boilerplate.presentation.view.MainScreenView;
 import com.bumptech.glide.Glide;
 import java.util.ArrayList;
@@ -29,9 +31,9 @@ import javax.inject.Inject;
  * @since 2016-Mar-15, 20:30
  */
 public final class RepositoriesView extends LinearLayout implements MainScreenView {
-  private final RepositoriesAdapter            mAdapter;
-  private final ViewRepositoriesContentBinding mBinding;
-  @Inject       MainScreenPresenter            mPresenter;
+  @Inject MainScreenPresenter     mPresenter;
+  private RepositoriesAdapter     mAdapter;
+  private ViewRepositoriesBinding mBinding;
 
   public RepositoriesView(final Context context) {
     this(context, null);
@@ -45,21 +47,27 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
     super(context, attrs, defStyleAttr);
     setOrientation(VERTICAL);
     (((BoilerplateApp) context.getApplicationContext()).getComponent()).inject(this);
-    mBinding = ViewRepositoriesContentBinding.inflate(LayoutInflater.from(context), this, true);
-    mAdapter = new RepositoriesAdapter(new ArrayList<>());
-    mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-    mBinding.recyclerView.setAdapter(mAdapter);
-    mBinding.button.setOnClickListener(this::onGetRepositoriesButtonClick);
   }
 
   @Override protected void onAttachedToWindow() {
     super.onAttachedToWindow();
     mPresenter.takeView(this);
+    mPresenter.takeRouter(((MainRouter) ((ContextWrapper) getContext()).getBaseContext()));
   }
 
   @Override protected void onDetachedFromWindow() {
+    mPresenter.dropRouter();
     mPresenter.dropView();
     super.onDetachedFromWindow();
+  }
+
+  @Override protected void onFinishInflate() {
+    super.onFinishInflate();
+    mBinding = ViewRepositoriesBinding.bind(this);
+    mAdapter = new RepositoriesAdapter(new ArrayList<>());
+    mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    mBinding.recyclerView.setAdapter(mAdapter);
+    mBinding.button.setOnClickListener(this::onGetRepositoriesButtonClick);
   }
 
   private void onGetRepositoriesButtonClick(View v) {
