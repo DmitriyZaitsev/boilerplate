@@ -65,8 +65,8 @@ public final class MainScreenPresenter extends Presenter<MainScreenView, MainRou
 
     @Override public void onNext(final List<RepositoryDto> r) {
       Observable.from(r)
-          .map(mDataMapper::toRepository)
           .toList()
+          .map(mDataMapper::map)
           .subscribe(mView::setRepositories);
     }
   }

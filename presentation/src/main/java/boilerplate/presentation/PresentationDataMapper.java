@@ -4,6 +4,7 @@ import boilerplate.domain.dto.OwnerDto;
 import boilerplate.domain.dto.RepositoryDto;
 import boilerplate.presentation.model.Owner;
 import boilerplate.presentation.model.Repository;
+import boilerplate.viper.Mapper;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -11,15 +12,8 @@ import boilerplate.presentation.model.Repository;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-22, 23:09
  */
-public final class PresentationDataMapper {
-  Owner toOwner(OwnerDto dto) {
-    return Owner.builder()
-        .avatarUrl(dto.getAvatarUrl())
-        .login(dto.getLogin())
-        .build();
-  }
-
-  public Repository toRepository(RepositoryDto dto) {
+public final class PresentationDataMapper extends Mapper<RepositoryDto, Repository> {
+  @Override public Repository map(RepositoryDto dto) {
     return Repository.builder()
         .description(dto.getDescription())
         .forks(dto.getForks())
@@ -28,6 +22,13 @@ public final class PresentationDataMapper {
         .owner(toOwner(dto.getOwner()))
         .updatedAt(dto.getUpdatedAt())
         .watchers(dto.getWatchers())
+        .build();
+  }
+
+  Owner toOwner(OwnerDto dto) {
+    return Owner.builder()
+        .avatarUrl(dto.getAvatarUrl())
+        .login(dto.getLogin())
         .build();
   }
 }

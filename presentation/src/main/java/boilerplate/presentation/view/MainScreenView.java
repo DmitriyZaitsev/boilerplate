@@ -2,7 +2,7 @@ package boilerplate.presentation.view;
 
 import boilerplate.viper.View;
 import boilerplate.presentation.model.Repository;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -11,5 +11,5 @@ import java.util.List;
  * @since 2016-Feb-13, 22:30
  */
 public interface MainScreenView extends View {
-  void setRepositories(final List<Repository> repositories);
+  void setRepositories(final Collection<Repository> repositories);
 }

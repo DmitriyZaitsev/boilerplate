@@ -21,6 +21,7 @@ import boilerplate.presentation.view.MainRouter;
 import boilerplate.presentation.view.MainScreenView;
 import com.bumptech.glide.Glide;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -76,7 +77,7 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
         .trim());
   }
 
-  @Override public void setRepositories(final List<Repository> repositories) {
+  @Override public void setRepositories(final Collection<Repository> repositories) {
     mAdapter.setItems(repositories);
     mAdapter.notifyDataSetChanged();
   }
@@ -109,7 +110,7 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
       return mRepositories.size();
     }
 
-    public void setItems(final List<Repository> repositories) {
+    public void setItems(final Collection<Repository> repositories) {
       mRepositories.clear();
       mRepositories.addAll(repositories);
     }
