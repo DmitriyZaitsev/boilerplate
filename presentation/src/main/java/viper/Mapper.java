@@ -1,4 +1,4 @@
-package boilerplate.viper;
+package viper;
 
 import java.util.ArrayList;
 import java.util.Collection;

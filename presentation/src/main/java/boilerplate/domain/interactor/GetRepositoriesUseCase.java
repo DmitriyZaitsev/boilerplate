@@ -2,7 +2,7 @@ package boilerplate.domain.interactor;
 
 import boilerplate.domain.dto.RepositoryDto;
 import boilerplate.domain.repository.DataRepository;
-import boilerplate.viper.Interactor;
+import viper.Interactor;
 import java.util.Collection;
 import javax.inject.Inject;
 import rx.Observable;

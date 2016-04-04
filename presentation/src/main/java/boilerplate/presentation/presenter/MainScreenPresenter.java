@@ -1,6 +1,6 @@
 package boilerplate.presentation.presenter;
 
-import boilerplate.viper.Presenter;
+import viper.Presenter;
 import boilerplate.domain.dto.RepositoryDto;
 import boilerplate.domain.interactor.GetRepositoriesUseCase;
 import boilerplate.presentation.PresentationDataMapper;

@@ -4,7 +4,7 @@ import boilerplate.data.entity.Owner;
 import boilerplate.data.entity.Repository;
 import boilerplate.domain.dto.OwnerDto;
 import boilerplate.domain.dto.RepositoryDto;
-import boilerplate.viper.Mapper;
+import viper.Mapper;
 import javax.inject.Inject;
 
 /**

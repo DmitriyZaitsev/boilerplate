@@ -1,4 +1,4 @@
-package boilerplate.viper;
+package viper;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~

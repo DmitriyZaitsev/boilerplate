@@ -1,4 +1,4 @@
-package boilerplate.viper;
+package viper;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -18,7 +18,7 @@ public abstract class Presenter<V extends View, R extends Router> {
     mView = null;
   }
 
-  final R getRouter() {
+  protected final R getRouter() {
     return mRouter;
   }
 

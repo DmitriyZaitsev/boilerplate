@@ -2,7 +2,7 @@ package boilerplate.data;
 
 import boilerplate.data.cache.db.GithubRepository;
 import boilerplate.data.entity.Repository;
-import boilerplate.viper.Mapper;
+import viper.Mapper;
 import javax.inject.Inject;
 
 /**

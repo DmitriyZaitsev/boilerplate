@@ -1,6 +1,6 @@
 package boilerplate.presentation.view;
 
-import boilerplate.viper.Router;
+import viper.Router;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
