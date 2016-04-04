@@ -1,18 +1,15 @@
 package boilerplate.presentation.presenter;
 
-import boilerplate.presentation.model.Repository;
-import viper.Presenter;
-import boilerplate.domain.dto.RepositoryDto;
 import boilerplate.domain.interactor.GetRepositoriesUseCase;
-import boilerplate.presentation.PresentationDataMapper;
+import boilerplate.presentation.model.Repository;
 import boilerplate.presentation.view.MainRouter;
 import boilerplate.presentation.view.MainScreenView;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.inject.Inject;
 import javax.inject.Provider;
-import rx.Observable;
 import rx.Subscriber;
+import viper.Presenter;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -22,13 +19,10 @@ import rx.Subscriber;
  */
 public final class MainScreenPresenter extends Presenter<MainScreenView, MainRouter> {
   private final Provider<GetRepositoriesUseCase> mGetRepositoriesUseCaseProvider;
-  private final PresentationDataMapper           mDataMapper;
   private       GetRepositoriesUseCase           mCurrentUseCase;
 
-  @Inject public MainScreenPresenter(Provider<GetRepositoriesUseCase> getRepositoriesUseCaseProvider,
-      PresentationDataMapper dataMapper) {
+  @Inject public MainScreenPresenter(Provider<GetRepositoriesUseCase> getRepositoriesUseCaseProvider) {
     mGetRepositoriesUseCaseProvider = getRepositoriesUseCaseProvider;
-    mDataMapper = dataMapper;
   }
 
   private void cancelCurrentUseCase() {
@@ -45,20 +39,18 @@ public final class MainScreenPresenter extends Presenter<MainScreenView, MainRou
   public void getRepositories(String userName) {
     cancelCurrentUseCase();
     mCurrentUseCase = mGetRepositoriesUseCaseProvider.get();
-    mCurrentUseCase.execute(new GetRepositoriesSubscriber(getView(), mDataMapper), userName);
+    mCurrentUseCase.execute(new GetRepositoriesSubscriber(getView()), userName);
   }
 
   public void onItemClicked(final Repository repository) {
     getRouter().goToDetailsScreen(repository);
   }
 
-  static class GetRepositoriesSubscriber extends Subscriber<Collection<RepositoryDto>> {
-    private final MainScreenView         mView;
-    private final PresentationDataMapper mDataMapper;
+  static class GetRepositoriesSubscriber extends Subscriber<Collection<Repository>> {
+    private final MainScreenView mView;
 
-    public GetRepositoriesSubscriber(final MainScreenView view, final PresentationDataMapper dataMapper) {
+    public GetRepositoriesSubscriber(final MainScreenView view) {
       mView = view;
-      mDataMapper = dataMapper;
     }
 
     @Override public void onCompleted() {
@@ -68,11 +60,8 @@ public final class MainScreenPresenter extends Presenter<MainScreenView, MainRou
       mView.setRepositories(new ArrayList<>());
     }
 
-    @Override public void onNext(final Collection<RepositoryDto> r) {
-      Observable.from(r)
-          .toList()
-          .map(mDataMapper::map)
-          .subscribe(mView::setRepositories);
+    @Override public void onNext(final Collection<Repository> repositories) {
+      mView.setRepositories(repositories);
     }
   }
 }
