@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.inject.Inject;
 import javax.inject.Provider;
+import javax.inject.Singleton;
 import rx.Subscriber;
+import rx.Subscription;
+import rx.subjects.ReplaySubject;
 import viper.Presenter;
 
 /**
@@ -17,12 +20,16 @@ import viper.Presenter;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-13, 22:31
  */
+@Singleton
 public final class MainScreenPresenter extends Presenter<MainScreenView, MainRouter> {
-  private final Provider<GetRepositoriesUseCase> mGetRepositoriesUseCaseProvider;
-  private       GetRepositoriesUseCase           mCurrentUseCase;
+  private final Provider<GetRepositoriesUseCase>      mGetRepositoriesUseCaseProvider;
+  private final ReplaySubject<Collection<Repository>> mCachedResponse;
+  private       GetRepositoriesUseCase                mCurrentUseCase;
+  private       Subscription                          mSubscription;
 
   @Inject public MainScreenPresenter(Provider<GetRepositoriesUseCase> getRepositoriesUseCaseProvider) {
     mGetRepositoriesUseCaseProvider = getRepositoriesUseCaseProvider;
+    mCachedResponse = ReplaySubject.create(1);
   }
 
   private void cancelCurrentUseCase() {
@@ -34,12 +41,18 @@ public final class MainScreenPresenter extends Presenter<MainScreenView, MainRou
   @Override public void dropView() {
     super.dropView();
     cancelCurrentUseCase();
+    mSubscription.unsubscribe();
+  }
+
+  @Override public void takeView(final MainScreenView view) {
+    super.takeView(view);
+    mSubscription = mCachedResponse.subscribe(view::setRepositories);
   }
 
   public void getRepositories(String userName) {
     cancelCurrentUseCase();
     mCurrentUseCase = mGetRepositoriesUseCaseProvider.get();
-    mCurrentUseCase.execute(new GetRepositoriesSubscriber(getView()), userName);
+    mCurrentUseCase.execute(new GetRepositoriesSubscriber(mCachedResponse), userName);
   }
 
   public void onItemClicked(final Repository repository) {
@@ -47,21 +60,21 @@ public final class MainScreenPresenter extends Presenter<MainScreenView, MainRou
   }
 
   static class GetRepositoriesSubscriber extends Subscriber<Collection<Repository>> {
-    private final MainScreenView mView;
+    private final ReplaySubject<Collection<Repository>> mCache;
 
-    public GetRepositoriesSubscriber(final MainScreenView view) {
-      mView = view;
+    public GetRepositoriesSubscriber(final ReplaySubject<Collection<Repository>> cache) {
+      mCache = cache;
     }
 
     @Override public void onCompleted() {
     }
 
     @Override public void onError(final Throwable t) {
-      mView.setRepositories(new ArrayList<>());
+      mCache.onNext(new ArrayList<>());
     }
 
     @Override public void onNext(final Collection<Repository> repositories) {
-      mView.setRepositories(repositories);
+      mCache.onNext(repositories);
     }
   }
 }
