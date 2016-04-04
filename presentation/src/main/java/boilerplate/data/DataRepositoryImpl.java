@@ -13,6 +13,7 @@ import boilerplate.data.entity.RepositoriesResponse;
 import boilerplate.data.entity.Repository;
 import boilerplate.domain.dto.RepositoryDto;
 import boilerplate.domain.repository.DataRepository;
+import java.util.Collection;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -29,23 +30,31 @@ import rx.functions.Action1;
  */
 @Singleton
 public final class DataRepositoryImpl implements DataRepository {
-  private final GitHubApi  mApi;
-  private final LocalCache mCache;
+  private final GitHubApi        mApi;
+  private final LocalCache       mCache;
+  private final DomainDataMapper mDomainDataMapper;
+  private final OwnerMapper      mOwnerMapper;
+  private final RepositoryMapper mRepositoryMapper;
 
-  @Inject public DataRepositoryImpl(GitHubApi api, LocalCache cache) {
+  @Inject
+  public DataRepositoryImpl(GitHubApi api, LocalCache cache, DomainDataMapper domainDataMapper, OwnerMapper ownerMapper,
+      RepositoryMapper repositoryMapper) {
     mApi = api;
     mCache = cache;
+    mDomainDataMapper = domainDataMapper;
+    mOwnerMapper = ownerMapper;
+    mRepositoryMapper = repositoryMapper;
   }
 
-  @Override public Observable<List<RepositoryDto>> getUsersRepositories(String user) {
+  @Override public Observable<Collection<RepositoryDto>> getUsersRepositories(String user) {
     return mApi.getRepositories(new UserQuery(user), Sort.UPDATED, Order.DESC)
         .map(Result::response)
         .map(Response::body)
         .map(RepositoriesResponse::getItems)
         .doOnNext(saveToCache())
         .flatMap(Observable::from)
-        .map(DomainDataMapper::toRepositoryDto)
-        .toList();
+        .toList()
+        .map(mDomainDataMapper::map);
   }
 
   @NonNull private Action1<List<Repository>> saveToCache() {
@@ -54,11 +63,11 @@ public final class DataRepositoryImpl implements DataRepository {
         final Owner owner = repo.getOwner();
         GithubOwner githubOwner = mCache.findOwnerById(owner.getId());
         if (githubOwner == null) {
-          githubOwner = DbDataMapper.toOwner(owner);
+          githubOwner = mOwnerMapper.map(owner);
           githubOwner.save();
         }
 
-        final GithubRepository repository = DbDataMapper.toRepository(repo);
+        final GithubRepository repository = mRepositoryMapper.map(repo);
         repository.owner(githubOwner);
         repository.save();
       }

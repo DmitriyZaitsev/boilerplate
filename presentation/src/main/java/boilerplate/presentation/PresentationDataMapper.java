@@ -5,6 +5,7 @@ import boilerplate.domain.dto.RepositoryDto;
 import boilerplate.presentation.model.Owner;
 import boilerplate.presentation.model.Repository;
 import boilerplate.viper.Mapper;
+import javax.inject.Inject;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -13,6 +14,10 @@ import boilerplate.viper.Mapper;
  * @since 2016-Feb-22, 23:09
  */
 public final class PresentationDataMapper extends Mapper<RepositoryDto, Repository> {
+
+  @Inject PresentationDataMapper() {
+  }
+
   @Override public Repository map(RepositoryDto dto) {
     return Repository.builder()
         .description(dto.getDescription())

@@ -3,7 +3,7 @@ package boilerplate.domain.interactor;
 import boilerplate.domain.dto.RepositoryDto;
 import boilerplate.domain.repository.DataRepository;
 import boilerplate.viper.Interactor;
-import java.util.List;
+import java.util.Collection;
 import javax.inject.Inject;
 import rx.Observable;
 import rx.Scheduler;
@@ -14,7 +14,7 @@ import rx.Scheduler;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-13, 22:40
  */
-public final class GetRepositoriesUseCase extends Interactor<String, List<RepositoryDto>> {
+public final class GetRepositoriesUseCase extends Interactor<String, Collection<RepositoryDto>> {
   private final DataRepository mRepository;
 
   @Inject
@@ -23,7 +23,7 @@ public final class GetRepositoriesUseCase extends Interactor<String, List<Reposi
     mRepository = repository;
   }
 
-  @Override protected Observable<List<RepositoryDto>> createObservable(final String userName) {
+  @Override protected Observable<Collection<RepositoryDto>> createObservable(final String userName) {
     return mRepository.getUsersRepositories(userName);
   }
 }

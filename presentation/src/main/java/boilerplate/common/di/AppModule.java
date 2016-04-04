@@ -64,11 +64,4 @@ public final class AppModule {
   Scheduler provideMainThreadScheduler() {
     return AndroidSchedulers.mainThread();
   }
-
-  @NonNull
-  @Provides
-  @Singleton
-  PresentationDataMapper providePresentationDataMapper() {
-    return new PresentationDataMapper();
-  }
 }

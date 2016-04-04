@@ -12,10 +12,10 @@ import java.util.Collection;
 public abstract class Mapper<From, To> {
   public abstract To map(From entity);
 
-  public final Collection<To> map(Collection<From> collection) {
-    final Collection<To> result = new ArrayList<>(collection.size());
+  public final Collection<To> map(Collection<From> entities) {
+    final Collection<To> result = new ArrayList<>(entities.size());
     //noinspection Convert2streamapi
-    for (From from : collection) {
+    for (From from : entities) {
       result.add(map(from));
     }
     return result;

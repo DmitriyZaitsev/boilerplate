@@ -7,7 +7,7 @@ import boilerplate.presentation.PresentationDataMapper;
 import boilerplate.presentation.view.MainRouter;
 import boilerplate.presentation.view.MainScreenView;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import rx.Observable;
@@ -47,7 +47,7 @@ public final class MainScreenPresenter extends Presenter<MainScreenView, MainRou
     mCurrentUseCase.execute(new GetRepositoriesSubscriber(getView(), mDataMapper), userName);
   }
 
-  static class GetRepositoriesSubscriber extends Subscriber<List<RepositoryDto>> {
+  static class GetRepositoriesSubscriber extends Subscriber<Collection<RepositoryDto>> {
     private final MainScreenView         mView;
     private final PresentationDataMapper mDataMapper;
 
@@ -63,7 +63,7 @@ public final class MainScreenPresenter extends Presenter<MainScreenView, MainRou
       mView.setRepositories(new ArrayList<>());
     }
 
-    @Override public void onNext(final List<RepositoryDto> r) {
+    @Override public void onNext(final Collection<RepositoryDto> r) {
       Observable.from(r)
           .toList()
           .map(mDataMapper::map)
