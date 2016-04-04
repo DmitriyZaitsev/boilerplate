@@ -69,6 +69,7 @@ dependencies {
   compile dependencies.retrofit
   compile dependencies.rxAndroid
   compile dependencies.rxJava
+  compile dependencies.rxViper
   compile dependencies.stethoOkHttp
   compile dependencies.stetho
   compile dependencies.supportDesign
