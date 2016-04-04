@@ -65,7 +65,7 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
   @Override protected void onFinishInflate() {
     super.onFinishInflate();
     mBinding = ViewRepositoriesBinding.bind(this);
-    mAdapter = new RepositoriesAdapter(new ArrayList<>());
+    mAdapter = new RepositoriesAdapter(new ArrayList<>(), mPresenter);
     mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     mBinding.recyclerView.setAdapter(mAdapter);
     mBinding.button.setOnClickListener(this::onGetRepositoriesButtonClick);
@@ -84,9 +84,11 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
 
   public static class RepositoriesAdapter extends RecyclerView.Adapter<RepositoriesAdapter.MyViewHolder> {
     private final List<Repository> mRepositories;
+    private final MainScreenPresenter mPresenter;
 
-    RepositoriesAdapter(List<Repository> repositories) {
+    RepositoriesAdapter(List<Repository> repositories, MainScreenPresenter presenter) {
       mRepositories = new ArrayList<>(repositories);
+      mPresenter = presenter;
     }
 
     @BindingAdapter("imageUrl") public static void setImageUrl(ImageView imageView, String url) {
@@ -99,7 +101,7 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
 
     @Override public MyViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
       final ListItemBinding binding = ListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-      return new MyViewHolder(binding);
+      return new MyViewHolder(binding, mPresenter);
     }
 
     @Override public void onBindViewHolder(final MyViewHolder holder, final int position) {
@@ -118,9 +120,10 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
     static class MyViewHolder extends RecyclerView.ViewHolder {
       final ListItemBinding mBinding;
 
-      MyViewHolder(final ListItemBinding binding) {
+      MyViewHolder(ListItemBinding binding, final MainScreenPresenter presenter) {
         super(binding.getRoot());
         mBinding = binding;
+        mBinding.container.setOnClickListener(v -> presenter.onItemClicked(mBinding.getRepository()));
       }
     }
   }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ViewAnimator;
 import boilerplate.R;
+import boilerplate.presentation.model.Repository;
 import boilerplate.presentation.view.flow.Keys;
 import boilerplate.presentation.view.flow.ScreenKeyChanger;
 import flow.Flow;
@@ -22,12 +23,18 @@ public class MainActivity extends AppCompatActivity implements MainRouter {
         .install());
   }
 
-  @Override public void goToDetailsScreen() {
-    (Flow.get(this)).set(new Keys.DetailsScreen());
+  @Override public void goToDetailsScreen(Repository repository) {
+    (Flow.get(this)).set(new Keys.DetailsScreen(repository));
   }
 
   @Override public void goToMainScreen() {
     (Flow.get(this)).set(new Keys.MainScreen());
+  }
+
+  @Override public void onBackPressed() {
+    if (!(Flow.get(this)).goBack()) {
+      super.onBackPressed();
+    }
   }
 
   @Override protected void onCreate(Bundle savedInstanceState) {

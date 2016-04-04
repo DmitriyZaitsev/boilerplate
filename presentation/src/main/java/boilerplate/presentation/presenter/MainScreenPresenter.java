@@ -1,5 +1,6 @@
 package boilerplate.presentation.presenter;
 
+import boilerplate.presentation.model.Repository;
 import viper.Presenter;
 import boilerplate.domain.dto.RepositoryDto;
 import boilerplate.domain.interactor.GetRepositoriesUseCase;
@@ -45,6 +46,10 @@ public final class MainScreenPresenter extends Presenter<MainScreenView, MainRou
     cancelCurrentUseCase();
     mCurrentUseCase = mGetRepositoriesUseCaseProvider.get();
     mCurrentUseCase.execute(new GetRepositoriesSubscriber(getView(), mDataMapper), userName);
+  }
+
+  public void onItemClicked(final Repository repository) {
+    getRouter().goToDetailsScreen(repository);
   }
 
   static class GetRepositoriesSubscriber extends Subscriber<Collection<RepositoryDto>> {

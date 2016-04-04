@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ViewAnimator;
+import boilerplate.presentation.view.DetailsView;
 import flow.Direction;
 import flow.KeyChanger;
 import flow.State;
@@ -34,6 +35,10 @@ public class ScreenKeyChanger extends KeyChanger {
     final Context context = incomingContexts.get(key);
     final View destinationView = (LayoutInflater.from(context)).inflate(layout.value(), mContainer, false);
     incomingState.restore(destinationView);
+
+    if (key instanceof Keys.DetailsScreen) {
+      ((DetailsView) destinationView).bind(((Keys.DetailsScreen) key).repository);
+    }
 
     mContainer.addView(destinationView);
     mContainer.showNext();
