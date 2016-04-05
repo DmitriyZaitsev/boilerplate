@@ -11,12 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import boilerplate.BoilerplateApp;
 import boilerplate.R;
 import boilerplate.databinding.ListItemBinding;
 import boilerplate.databinding.ViewRepositoriesBinding;
 import boilerplate.presentation.model.Repository;
 import boilerplate.presentation.presenter.MainScreenPresenter;
+import boilerplate.presentation.view.MainActivity;
 import boilerplate.presentation.view.MainRouter;
 import boilerplate.presentation.view.MainScreenView;
 import com.bumptech.glide.Glide;
@@ -47,7 +47,7 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
   public RepositoriesView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     setOrientation(VERTICAL);
-    (((BoilerplateApp) context.getApplicationContext()).getComponent()).inject(this);
+    (MainActivity.getComponent(context)).inject(this);
   }
 
   @Override protected void onAttachedToWindow() {
@@ -83,7 +83,7 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
   }
 
   public static class RepositoriesAdapter extends RecyclerView.Adapter<RepositoriesAdapter.MyViewHolder> {
-    private final List<Repository> mRepositories;
+    private final List<Repository>    mRepositories;
     private final MainScreenPresenter mPresenter;
 
     RepositoriesAdapter(List<Repository> repositories, MainScreenPresenter presenter) {

@@ -1,5 +1,6 @@
 package boilerplate.presentation.presenter;
 
+import boilerplate.common.di.PerActivity;
 import boilerplate.domain.interactor.GetRepositoriesUseCase;
 import boilerplate.presentation.model.Repository;
 import boilerplate.presentation.view.MainRouter;
@@ -8,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.inject.Inject;
 import javax.inject.Provider;
-import javax.inject.Singleton;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.subjects.ReplaySubject;
@@ -20,7 +20,7 @@ import viper.Presenter;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-13, 22:31
  */
-@Singleton
+@PerActivity
 public final class MainScreenPresenter extends Presenter<MainScreenView, MainRouter> {
   private final Provider<GetRepositoriesUseCase>      mGetRepositoriesUseCaseProvider;
   private final ReplaySubject<Collection<Repository>> mCachedResponse;

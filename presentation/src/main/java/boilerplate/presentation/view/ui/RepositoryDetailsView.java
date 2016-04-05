@@ -3,11 +3,11 @@ package boilerplate.presentation.view.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
-import boilerplate.BoilerplateApp;
 import boilerplate.databinding.ViewDetailsBinding;
 import boilerplate.presentation.model.Repository;
 import boilerplate.presentation.presenter.DetailsScreenPresenter;
 import boilerplate.presentation.view.DetailsView;
+import boilerplate.presentation.view.MainActivity;
 import javax.inject.Inject;
 
 /**
@@ -31,7 +31,7 @@ public final class RepositoryDetailsView extends LinearLayout implements Details
 
   public RepositoryDetailsView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
     super(context, attrs, defStyleAttr);
-    (((BoilerplateApp) context.getApplicationContext()).getComponent()).inject(this);
+    (MainActivity.getComponent(context)).inject(this);
   }
 
   @Override public void bind(final Repository repository) {

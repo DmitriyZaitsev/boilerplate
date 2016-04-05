@@ -1,7 +1,5 @@
 package boilerplate.common.di;
 
-import boilerplate.presentation.view.ui.RepositoriesView;
-import boilerplate.presentation.view.ui.RepositoryDetailsView;
 import dagger.Component;
 import javax.inject.Singleton;
 
@@ -14,7 +12,5 @@ import javax.inject.Singleton;
 @Singleton
 @Component(modules = { AppModule.class, DataModule.class })
 public interface AppComponent {
-  void inject(RepositoriesView view);
-
-  void inject(RepositoryDetailsView view);
+  ActivityComponent plus(ActivityModule module);
 }
