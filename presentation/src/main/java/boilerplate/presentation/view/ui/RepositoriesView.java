@@ -1,7 +1,6 @@
 package boilerplate.presentation.view.ui;
 
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +16,6 @@ import boilerplate.databinding.ViewRepositoriesBinding;
 import boilerplate.presentation.model.Repository;
 import boilerplate.presentation.presenter.MainScreenPresenter;
 import boilerplate.presentation.view.MainActivity;
-import boilerplate.presentation.view.MainRouter;
 import boilerplate.presentation.view.MainScreenView;
 import com.bumptech.glide.Glide;
 import java.util.ArrayList;
@@ -50,15 +48,20 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
     (MainActivity.getComponent(context)).inject(this);
   }
 
+  @Override public void setRepositories(final Collection<Repository> repositories) {
+    mAdapter.setItems(repositories);
+    mAdapter.notifyDataSetChanged();
+  }
+
   @Override protected void onAttachedToWindow() {
     super.onAttachedToWindow();
     mPresenter.takeView(this);
-    mPresenter.takeRouter(((MainRouter) ((ContextWrapper) getContext()).getBaseContext()));
+    mPresenter.takeRouter(MainActivity.toRouter(getContext()));
   }
 
   @Override protected void onDetachedFromWindow() {
-    mPresenter.dropRouter();
-    mPresenter.dropView();
+    mPresenter.dropRouter(MainActivity.toRouter(getContext()));
+    mPresenter.dropView(this);
     super.onDetachedFromWindow();
   }
 
@@ -75,11 +78,6 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
     mPresenter.getRepositories(mBinding.editText.getText()
         .toString()
         .trim());
-  }
-
-  @Override public void setRepositories(final Collection<Repository> repositories) {
-    mAdapter.setItems(repositories);
-    mAdapter.notifyDataSetChanged();
   }
 
   public static class RepositoriesAdapter extends RecyclerView.Adapter<RepositoriesAdapter.MyViewHolder> {
@@ -112,9 +110,11 @@ public final class RepositoriesView extends LinearLayout implements MainScreenVi
       return mRepositories.size();
     }
 
-    public void setItems(final Collection<Repository> repositories) {
+    void setItems(final Collection<Repository> repositories) {
       mRepositories.clear();
-      mRepositories.addAll(repositories);
+      if (repositories != null) {
+        mRepositories.addAll(repositories);
+      }
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {

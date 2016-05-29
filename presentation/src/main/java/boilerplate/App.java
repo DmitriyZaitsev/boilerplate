@@ -3,6 +3,7 @@ package boilerplate;
 import boilerplate.common.di.AppComponent;
 import boilerplate.common.di.AppModule;
 import boilerplate.common.di.DaggerAppComponent;
+import boilerplate.common.di.DataModule;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -15,6 +16,7 @@ public final class App extends BoilerplateApp {
   @Override protected AppComponent createComponent() {
     return DaggerAppComponent.builder()
         .appModule(new AppModule(this))
+        .dataModule(new DataModule(this))
         .build();
   }
 

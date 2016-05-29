@@ -1,6 +1,6 @@
 package boilerplate.domain.interactor;
 
-import boilerplate.domain.repository.DataRepository;
+import boilerplate.domain.repository.DataStorage;
 import boilerplate.presentation.PresentationDataMapper;
 import boilerplate.presentation.model.Repository;
 import java.util.Collection;
@@ -17,10 +17,10 @@ import viper.Interactor;
  * @since 2016-Feb-13, 22:40
  */
 public final class GetRepositoriesUseCase extends Interactor<String, Collection<Repository>> {
-  private final DataRepository         mRepository;
+  private final DataStorage            mRepository;
   private final PresentationDataMapper mMapper;
 
-  @Inject public GetRepositoriesUseCase(DataRepository repository, @Named("io") Scheduler jobScheduler,
+  @Inject GetRepositoriesUseCase(DataStorage repository, @Named("io") Scheduler jobScheduler,
       @Named("mainThread") Scheduler postExecutionScheduler, PresentationDataMapper mapper) {
     super(jobScheduler, postExecutionScheduler);
     mRepository = repository;

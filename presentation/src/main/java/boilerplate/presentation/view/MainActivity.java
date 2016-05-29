@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity implements MainRouter {
     return (((MainActivity) ((ContextWrapper) context).getBaseContext()).mComponent);
   }
 
+  public static MainRouter toRouter(Context context) {
+    return (((MainRouter) ((ContextWrapper) context).getBaseContext()));
+  }
+
   @Override protected void attachBaseContext(final Context newBase) {
     mKeyChanger = new ScreenKeyChanger();
     super.attachBaseContext(Flow.configure(newBase, this)

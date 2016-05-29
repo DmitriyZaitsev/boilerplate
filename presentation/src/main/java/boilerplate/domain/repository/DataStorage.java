@@ -10,6 +10,6 @@ import rx.Observable;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-13, 23:02
  */
-public interface DataRepository {
+public interface DataStorage {
   Observable<Collection<RepositoryDto>> getUsersRepositories(String user);
 }

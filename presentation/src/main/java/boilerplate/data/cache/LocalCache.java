@@ -1,6 +1,8 @@
 package boilerplate.data.cache;
 
-import boilerplate.data.cache.db.GithubOwner;
+import boilerplate.data.cache.db.GithubRepository;
+import java.util.Collection;
+import rx.Observable;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -9,5 +11,10 @@ import boilerplate.data.cache.db.GithubOwner;
  * @since 2016-Mar-20, 02:50
  */
 public interface LocalCache {
-  GithubOwner findOwnerById(long id);
+
+  Observable<Collection<GithubRepository>> findRepositoriesByOwnerName(String name);
+
+  void removeRepositoriesByOwnerName(String name);
+
+  void saveRepositories(final String user, Collection<GithubRepository> map);
 }

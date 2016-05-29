@@ -1,31 +1,31 @@
 package boilerplate.data;
 
-import boilerplate.data.entity.Owner;
-import boilerplate.data.entity.Repository;
+import boilerplate.data.cache.db.GithubOwner;
+import boilerplate.data.cache.db.GithubRepository;
 import boilerplate.domain.dto.OwnerDto;
 import boilerplate.domain.dto.RepositoryDto;
-import viper.Mapper;
 import javax.inject.Inject;
+import viper.Mapper;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
  *
  * @author Dmitriy Zaitsev
- * @since 2016-Feb-22, 22:35
+ * @since 2016-Apr-05, 17:20
  */
-public final class DomainDataMapper extends Mapper<Repository, RepositoryDto> {
+public final class LocalDataMapper extends Mapper<GithubRepository, RepositoryDto> {
 
-  @Inject DomainDataMapper() {
+  @Inject LocalDataMapper() {
   }
 
-  private static OwnerDto toOwnerDto(Owner entity) {
-    return OwnerDto.builder()
+  private static OwnerDto toOwnerDto(GithubOwner entity) {
+    return entity == null ? (OwnerDto.builder()).build() : OwnerDto.builder()
         .login(entity.getLogin())
         .avatarUrl(entity.getAvatarUrl())
         .build();
   }
 
-  @Override public RepositoryDto map(Repository entity) {
+  @Override public RepositoryDto map(GithubRepository entity) {
     return RepositoryDto.builder()
         .name(entity.getName())
         .description(entity.getDescription())

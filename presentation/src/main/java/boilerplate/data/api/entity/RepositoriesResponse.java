@@ -1,4 +1,4 @@
-package boilerplate.data.entity;
+package boilerplate.data.api.entity;
 
 import java.util.List;
 import lombok.Getter;

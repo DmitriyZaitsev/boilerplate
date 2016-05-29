@@ -1,15 +1,10 @@
 package boilerplate.data.cache.db;
 
-import com.raizlabs.android.dbflow.annotation.Column;
-import com.raizlabs.android.dbflow.annotation.ForeignKey;
-import com.raizlabs.android.dbflow.annotation.PrimaryKey;
-import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.config.FlowManager;
-import com.raizlabs.android.dbflow.structure.BaseModel;
-import com.raizlabs.android.dbflow.structure.container.ForeignKeyContainer;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.Accessors;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -17,25 +12,18 @@ import lombok.experimental.Accessors;
  * @author Dmitriy Zaitsev
  * @since 2016-Mar-19, 17:59
  */
-@Table(database = GithubDatabase.class, name = "repository")
 @Setter
+@Getter
 @ToString
-public final class GithubRepository extends BaseModel {
-  @PrimaryKey long   id;
-  @Column     String name;
-  @Column     String description;
-  @Column     String htmlUrl;
-  @Column     String updatedAt;
-  @Column     long   watchers;
-  @Column     long   forks;
-
-  @ForeignKey(saveForeignKeyModel = false) ForeignKeyContainer<GithubOwner> ownerId;
-
-  /** Example of setting the model for the owner. */
-  public void owner(GithubOwner owner) {
-    ownerId = FlowManager.getContainerAdapter(GithubOwner.class)
-        .toForeignKeyContainer(owner);
-  }
+public class GithubRepository extends RealmObject {
+  @PrimaryKey long id;
+  String      name;
+  String      description;
+  String      htmlUrl;
+  String      updatedAt;
+  long        watchers;
+  long        forks;
+  GithubOwner owner;
 
   //@Column String  fullName;
   //@Column String  url;

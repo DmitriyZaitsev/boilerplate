@@ -1,7 +1,7 @@
 //@formatter:off
 package boilerplate.data.api;
 
-import boilerplate.data.entity.RepositoriesResponse;
+import boilerplate.data.api.entity.RepositoriesResponse;
 import retrofit2.adapter.rxjava.Result;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

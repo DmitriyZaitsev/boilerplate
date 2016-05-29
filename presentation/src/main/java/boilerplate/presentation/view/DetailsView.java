@@ -1,7 +1,7 @@
 package boilerplate.presentation.view;
 
 import boilerplate.presentation.model.Repository;
-import viper.View;
+import viper.ViewCallbacks;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -9,6 +9,6 @@ import viper.View;
  * @author Dmitriy Zaitsev
  * @since 2016-Apr-04, 03:48
  */
-public interface DetailsView extends View {
+public interface DetailsView extends ViewCallbacks {
   void bind(Repository repository);
 }

@@ -1,4 +1,4 @@
-package boilerplate.data.entity;
+package boilerplate.data.api.entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -71,7 +71,7 @@ public final class Repository {
   @Expose @SerializedName("mirror_url")        String  mirrorUrl;
   @Expose @SerializedName("open_issues_count") String  openIssuesCount;
   @Expose @SerializedName("default_branch")    String  defaultBranch;
-  @Expose @SerializedName("private")           boolean _private;
+  @Expose @SerializedName("private")           boolean private_;
   @Expose @SerializedName("fork")              boolean fork;
   @Expose @SerializedName("has_issues")        boolean hasIssues;
   @Expose @SerializedName("has_downloads")     boolean hasDownloads;

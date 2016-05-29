@@ -1,15 +1,18 @@
 package boilerplate.common.di;
 
+import android.app.Application;
 import android.support.annotation.NonNull;
 import boilerplate.BuildConfig;
+import boilerplate.data.DataStorageImpl;
 import boilerplate.data.api.GitHubApi;
-import boilerplate.data.DataRepositoryImpl;
-import boilerplate.data.cache.DbFlowLocalCache;
 import boilerplate.data.cache.LocalCache;
-import boilerplate.domain.repository.DataRepository;
+import boilerplate.data.cache.RealmLocalCache;
+import boilerplate.domain.repository.DataStorage;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 import lombok.val;
@@ -28,6 +31,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public final class DataModule {
+
+  public DataModule(final Application app) {
+    Realm.setDefaultConfiguration(new RealmConfiguration.Builder(app).build());
+  }
+
   @NonNull @Provides @Singleton HttpUrl provideBaseUrl() {
     return HttpUrl.parse(BuildConfig.BASE_URL_GITHUB);
   }
@@ -47,8 +55,12 @@ public final class DataModule {
         .build();
   }
 
-  @NonNull @Provides @Singleton DataRepository provideRepository(DataRepositoryImpl repository) {
+  @NonNull @Provides @Singleton DataStorage provideDataStorage(DataStorageImpl repository) {
     return repository;
+  }
+
+  @NonNull @Provides Realm provideRealm() {
+    return Realm.getDefaultInstance();
   }
 
   @NonNull @Provides @Singleton Retrofit provideRetrofit(OkHttpClient client, HttpUrl baseUrl) {
@@ -59,7 +71,7 @@ public final class DataModule {
         .build();
   }
 
-  @NonNull @Provides @Singleton LocalCache provideLocalCache(DbFlowLocalCache cache) {
+  @NonNull @Provides @Singleton LocalCache provideLocalCache(RealmLocalCache cache) {
     return cache;
   }
 }

@@ -1,9 +1,9 @@
 package boilerplate.data;
 
+import boilerplate.data.api.entity.Repository;
 import boilerplate.data.cache.db.GithubRepository;
-import boilerplate.data.entity.Repository;
-import viper.Mapper;
 import javax.inject.Inject;
+import viper.Mapper;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -12,8 +12,10 @@ import javax.inject.Inject;
  * @since 2016-Mar-20, 03:20
  */
 public final class RepositoryMapper extends Mapper<Repository, GithubRepository> {
+  private final OwnerMapper mMapper;
 
-  @Inject RepositoryMapper() {
+  @Inject RepositoryMapper(OwnerMapper mapper) {
+    mMapper = mapper;
   }
 
   @Override public GithubRepository map(Repository repo) {
@@ -25,6 +27,7 @@ public final class RepositoryMapper extends Mapper<Repository, GithubRepository>
     repository.setHtmlUrl(repo.getHtmlUrl());
     repository.setUpdatedAt(repo.getUpdatedAt());
     repository.setWatchers(repo.getWatchers());
+    repository.setOwner(mMapper.map(repo.getOwner()));
     return repository;
   }
 }

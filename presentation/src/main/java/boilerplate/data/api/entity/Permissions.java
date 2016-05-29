@@ -1,4 +1,4 @@
-package boilerplate.data.entity;
+package boilerplate.data.api.entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

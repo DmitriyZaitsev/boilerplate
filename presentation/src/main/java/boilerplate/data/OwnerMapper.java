@@ -1,7 +1,7 @@
 package boilerplate.data;
 
 import boilerplate.data.cache.db.GithubOwner;
-import boilerplate.data.entity.Owner;
+import boilerplate.data.api.entity.Owner;
 import viper.Mapper;
 import javax.inject.Inject;
 
