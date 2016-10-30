@@ -1,6 +1,6 @@
-package boilerplate.domain.repository;
+package boilerplate.data;
 
-import boilerplate.domain.dto.RepositoryDto;
+import boilerplate.domain.RepositoryDto;
 import java.util.Collection;
 import rx.Observable;
 

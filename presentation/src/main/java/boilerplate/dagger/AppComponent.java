@@ -1,4 +1,4 @@
-package boilerplate.common.di;
+package boilerplate.dagger;
 
 import dagger.Component;
 import javax.inject.Singleton;

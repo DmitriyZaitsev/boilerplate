@@ -1,6 +1,5 @@
-package boilerplate.presentation.view;
+package boilerplate.presentation;
 
-import boilerplate.presentation.model.Repository;
 import viper.Router;
 
 /**
@@ -9,7 +8,7 @@ import viper.Router;
  * @author Dmitriy Zaitsev
  * @since 2016-Apr-03, 20:19
  */
-public interface MainRouter extends Router {
+interface MainRouter extends Router {
   void goToDetailsScreen(Repository repository);
 
   void goToMainScreen();

@@ -1,4 +1,4 @@
-package boilerplate.domain.dto;
+package boilerplate.domain;
 
 import boilerplate.TestUtils;
 import org.junit.Before;

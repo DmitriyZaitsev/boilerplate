@@ -16,5 +16,5 @@ public interface LocalCache {
 
   void removeRepositoriesByOwnerName(String name);
 
-  void saveRepositories(final String user, Collection<GithubRepository> map);
+  void saveRepositories(String user, Collection<GithubRepository> map);
 }

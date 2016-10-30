@@ -2,8 +2,8 @@ package boilerplate.data;
 
 import boilerplate.data.cache.db.GithubOwner;
 import boilerplate.data.cache.db.GithubRepository;
-import boilerplate.domain.dto.OwnerDto;
-import boilerplate.domain.dto.RepositoryDto;
+import boilerplate.domain.OwnerDto;
+import boilerplate.domain.RepositoryDto;
 import javax.inject.Inject;
 import viper.Mapper;
 
@@ -15,17 +15,20 @@ import viper.Mapper;
  */
 public final class LocalDataMapper extends Mapper<GithubRepository, RepositoryDto> {
 
-  @Inject LocalDataMapper() {
+  @Inject
+  LocalDataMapper() {
   }
 
   private static OwnerDto toOwnerDto(GithubOwner entity) {
-    return entity == null ? (OwnerDto.builder()).build() : OwnerDto.builder()
+    return entity == null ? OwnerDto.builder()
+        .build() : OwnerDto.builder()
         .login(entity.getLogin())
         .avatarUrl(entity.getAvatarUrl())
         .build();
   }
 
-  @Override public RepositoryDto map(GithubRepository entity) {
+  @Override
+  public RepositoryDto map(GithubRepository entity) {
     return RepositoryDto.builder()
         .name(entity.getName())
         .description(entity.getDescription())

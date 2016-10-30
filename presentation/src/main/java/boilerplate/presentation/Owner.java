@@ -1,4 +1,4 @@
-package boilerplate.presentation.model;
+package boilerplate.presentation;
 
 import lombok.Builder;
 import lombok.ToString;

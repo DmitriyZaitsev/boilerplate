@@ -7,8 +7,7 @@ import boilerplate.data.api.Sort;
 import boilerplate.data.api.UserQuery;
 import boilerplate.data.api.entity.RepositoriesResponse;
 import boilerplate.data.cache.LocalCache;
-import boilerplate.domain.dto.RepositoryDto;
-import boilerplate.domain.repository.DataStorage;
+import boilerplate.domain.RepositoryDto;
 import java.util.Collection;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -24,41 +23,45 @@ import rx.Observable;
  */
 @Singleton
 public final class DataStorageImpl implements DataStorage {
-  private final GitHubApi        mApi;
-  private final LocalCache       mCache;
-  private final CloudDataMapper  mCloudDataMapper;
-  private final LocalDataMapper  mLocalDataMapper;
-  private final RepositoryMapper mRepositoryMapper;
+  private final GitHubApi        api;
+  private final LocalCache       cache;
+  private final CloudDataMapper  cloudDataMapper;
+  private final LocalDataMapper  localDataMapper;
+  private final RepositoryMapper repositoryMapper;
 
-  @Inject DataStorageImpl(GitHubApi api, LocalCache cache, CloudDataMapper cloudDataMapper,
-      LocalDataMapper localDataMapper, RepositoryMapper repositoryMapper) {
-    mApi = api;
-    mCache = cache;
-    mCloudDataMapper = cloudDataMapper;
-    mLocalDataMapper = localDataMapper;
-    mRepositoryMapper = repositoryMapper;
+  @Inject
+  DataStorageImpl(GitHubApi api, LocalCache cache, CloudDataMapper cloudDataMapper, LocalDataMapper localDataMapper,
+      RepositoryMapper repositoryMapper) {
+    this.api = api;
+    this.cache = cache;
+    this.cloudDataMapper = cloudDataMapper;
+    this.localDataMapper = localDataMapper;
+    this.repositoryMapper = repositoryMapper;
   }
 
-  @Override public Observable<Collection<RepositoryDto>> getUsersRepositories(String user) {
+  @Override
+  public Observable<Collection<RepositoryDto>> getUsersRepositories(String user) {
     return Observable.concat(getCachedData(user), getServerData(user));
   }
 
-  @NonNull private Observable<Collection<RepositoryDto>> getCachedData(final String user) {
-    return mCache.findRepositoriesByOwnerName(user)
-        .map(mLocalDataMapper::map);
+  @NonNull
+  private Observable<Collection<RepositoryDto>> getCachedData(final String user) {
+    return cache.findRepositoriesByOwnerName(user)
+        .map(localDataMapper::map);
   }
 
-  @NonNull private Observable<Collection<RepositoryDto>> getServerData(final String user) {
-    return mApi.getRepositories(new UserQuery(user), Sort.UPDATED, Order.DESC)
+  @NonNull
+  private Observable<Collection<RepositoryDto>> getServerData(final String user) {
+    return api.getRepositories(new UserQuery(user), Sort.UPDATED, Order.DESC)
         .map(Result::response)
         .map(Response::body)
         .map(RepositoriesResponse::getItems)
         .doOnNext(repos -> {
-          mCache.removeRepositoriesByOwnerName(user);
-          mCache.saveRepositories(user, mRepositoryMapper.map(repos));
+          cache.removeRepositoriesByOwnerName(user);
+          cache.saveRepositories(user, repositoryMapper.map(repos));
         })
         .flatMap(Observable::from)
         .toList()
-        .map(mCloudDataMapper::map);
+        .map(cloudDataMapper::map);
   }
 }

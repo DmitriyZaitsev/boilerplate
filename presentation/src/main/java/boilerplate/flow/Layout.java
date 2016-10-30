@@ -1,4 +1,4 @@
-package boilerplate.presentation.view.flow;
+package boilerplate.flow;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

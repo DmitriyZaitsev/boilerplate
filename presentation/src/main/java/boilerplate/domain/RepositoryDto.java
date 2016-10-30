@@ -1,4 +1,4 @@
-package boilerplate.domain.dto;
+package boilerplate.domain;
 
 import lombok.Builder;
 import lombok.Value;

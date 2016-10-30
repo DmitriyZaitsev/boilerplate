@@ -1,4 +1,4 @@
-package boilerplate.common.di;
+package boilerplate.dagger;
 
 import dagger.Module;
 
@@ -9,5 +9,4 @@ import dagger.Module;
  * @since 2016-Apr-05, 13:48
  */
 @Module
-public final class ActivityModule {
-}
+public final class ActivityModule {}

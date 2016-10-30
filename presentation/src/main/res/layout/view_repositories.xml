@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
 
-  <boilerplate.presentation.view.ui.RepositoriesView
+  <boilerplate.presentation.RepositoriesView
     android:id="@+id/repositoriesView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.view.MainActivity">
+    tools:context=".presentation.MainActivity">
 
     <EditText
       android:id="@+id/editText"
@@ -27,5 +27,5 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       tools:listitem="@layout/list_item" />
-  </boilerplate.presentation.view.ui.RepositoriesView>
+  </boilerplate.presentation.RepositoriesView>
 </layout>

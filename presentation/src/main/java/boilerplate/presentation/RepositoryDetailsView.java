@@ -1,13 +1,9 @@
-package boilerplate.presentation.view.ui;
+package boilerplate.presentation;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import boilerplate.databinding.ViewDetailsBinding;
-import boilerplate.presentation.model.Repository;
-import boilerplate.presentation.presenter.DetailsScreenPresenter;
-import boilerplate.presentation.view.DetailsView;
-import boilerplate.presentation.view.MainActivity;
 import javax.inject.Inject;
 
 /**
@@ -18,8 +14,8 @@ import javax.inject.Inject;
  */
 public final class RepositoryDetailsView extends LinearLayout implements DetailsView {
 
-  @Inject DetailsScreenPresenter mPresenter;
-  private ViewDetailsBinding     mBinding;
+  @Inject DetailsScreenPresenter presenter;
+  private ViewDetailsBinding     binding;
 
   public RepositoryDetailsView(final Context context) {
     this(context, null);
@@ -31,15 +27,18 @@ public final class RepositoryDetailsView extends LinearLayout implements Details
 
   public RepositoryDetailsView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
     super(context, attrs, defStyleAttr);
-    (MainActivity.getComponent(context)).inject(this);
+    MainActivity.getComponent(context)
+        .inject(this);
   }
 
-  @Override public void bind(final Repository repository) {
-    mBinding.setRepository(repository);
+  @Override
+  public void bind(final Repository repository) {
+    binding.setRepository(repository);
   }
 
-  @Override protected void onFinishInflate() {
+  @Override
+  protected void onFinishInflate() {
     super.onFinishInflate();
-    mBinding = ViewDetailsBinding.bind(this);
+    binding = ViewDetailsBinding.bind(this);
   }
 }

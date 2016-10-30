@@ -1,7 +1,7 @@
-package boilerplate.presentation.view.flow;
+package boilerplate.flow;
 
 import boilerplate.R;
-import boilerplate.presentation.model.Repository;
+import boilerplate.presentation.Repository;
 import flow.ClassKey;
 
 /**
@@ -22,6 +22,5 @@ public final class Keys {
   }
 
   @Layout(R.layout.view_repositories)
-  public static final class MainScreen extends ClassKey {
-  }
+  public static final class MainScreen extends ClassKey {}
 }

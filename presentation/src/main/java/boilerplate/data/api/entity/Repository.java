@@ -11,7 +11,9 @@ import lombok.ToString;
  * @author Dmitriy Zaitsev
  * @since 2016-Feb-14, 00:14
  */
-@ToString @Getter
+@SuppressWarnings("ClassWithTooManyFields")
+@ToString
+@Getter
 public final class Repository {
   @Expose @SerializedName("id")                long    id;
   @Expose @SerializedName("name")              String  name;
@@ -71,7 +73,7 @@ public final class Repository {
   @Expose @SerializedName("mirror_url")        String  mirrorUrl;
   @Expose @SerializedName("open_issues_count") String  openIssuesCount;
   @Expose @SerializedName("default_branch")    String  defaultBranch;
-  @Expose @SerializedName("private")           boolean private_;
+  @Expose @SerializedName("private")           boolean isPrivate;
   @Expose @SerializedName("fork")              boolean fork;
   @Expose @SerializedName("has_issues")        boolean hasIssues;
   @Expose @SerializedName("has_downloads")     boolean hasDownloads;

@@ -1,9 +1,9 @@
 package boilerplate.data;
 
-import boilerplate.data.cache.db.GithubOwner;
 import boilerplate.data.api.entity.Owner;
-import viper.Mapper;
+import boilerplate.data.cache.db.GithubOwner;
 import javax.inject.Inject;
+import viper.Mapper;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -12,10 +12,12 @@ import javax.inject.Inject;
  * @since 2016-Apr-04, 02:51
  */
 public final class OwnerMapper extends Mapper<Owner, GithubOwner> {
-  @Inject OwnerMapper() {
+  @Inject
+  OwnerMapper() {
   }
 
-  @Override public GithubOwner map(Owner owner) {
+  @Override
+  public GithubOwner map(Owner owner) {
     final GithubOwner githubOwner = new GithubOwner();
     githubOwner.setId(owner.getId());
     githubOwner.setAvatarUrl(owner.getAvatarUrl());

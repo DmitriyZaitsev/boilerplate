@@ -1,7 +1,7 @@
-package boilerplate.common.di;
+package boilerplate.dagger;
 
-import boilerplate.presentation.view.ui.RepositoriesView;
-import boilerplate.presentation.view.ui.RepositoryDetailsView;
+import boilerplate.presentation.RepositoriesView;
+import boilerplate.presentation.RepositoryDetailsView;
 import dagger.Subcomponent;
 
 /**

@@ -2,8 +2,8 @@ package boilerplate.data;
 
 import boilerplate.data.api.entity.Owner;
 import boilerplate.data.api.entity.Repository;
-import boilerplate.domain.dto.OwnerDto;
-import boilerplate.domain.dto.RepositoryDto;
+import boilerplate.domain.OwnerDto;
+import boilerplate.domain.RepositoryDto;
 import javax.inject.Inject;
 import viper.Mapper;
 
@@ -15,7 +15,8 @@ import viper.Mapper;
  */
 public final class CloudDataMapper extends Mapper<Repository, RepositoryDto> {
 
-  @Inject CloudDataMapper() {
+  @Inject
+  CloudDataMapper() {
   }
 
   private static OwnerDto toOwnerDto(Owner entity) {
@@ -25,7 +26,8 @@ public final class CloudDataMapper extends Mapper<Repository, RepositoryDto> {
         .build();
   }
 
-  @Override public RepositoryDto map(Repository entity) {
+  @Override
+  public RepositoryDto map(Repository entity) {
     return RepositoryDto.builder()
         .name(entity.getName())
         .description(entity.getDescription())

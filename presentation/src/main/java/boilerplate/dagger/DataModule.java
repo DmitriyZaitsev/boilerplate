@@ -1,13 +1,12 @@
-package boilerplate.common.di;
+package boilerplate.dagger;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
 import boilerplate.BuildConfig;
+import boilerplate.data.DataStorage;
 import boilerplate.data.DataStorageImpl;
 import boilerplate.data.api.GitHubApi;
 import boilerplate.data.cache.LocalCache;
 import boilerplate.data.cache.RealmLocalCache;
-import boilerplate.domain.repository.DataStorage;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import dagger.Module;
 import dagger.Provides;
@@ -15,7 +14,6 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
-import lombok.val;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -32,22 +30,28 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public final class DataModule {
 
-  public DataModule(final Application app) {
-    Realm.setDefaultConfiguration(new RealmConfiguration.Builder(app).build());
+  public DataModule(Application app) {
+    Realm.init(app);
+    Realm.setDefaultConfiguration(new RealmConfiguration.Builder().build());
   }
 
-  @NonNull @Provides @Singleton HttpUrl provideBaseUrl() {
+  @Provides
+  @Singleton
+  static HttpUrl provideBaseUrl() {
     return HttpUrl.parse(BuildConfig.BASE_URL_GITHUB);
   }
 
-  @Provides @Singleton GitHubApi provideGitHubApi(Retrofit retrofit) {
+  @Provides
+  @Singleton
+  static GitHubApi provideGitHubApi(Retrofit retrofit) {
     return retrofit.create(GitHubApi.class);
   }
 
-  @NonNull @Provides @Singleton OkHttpClient provideOkHttpClient() {
-    val loggingInterceptor = new HttpLoggingInterceptor();
-    loggingInterceptor.setLevel(
-        BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
+  @Provides
+  @Singleton
+  static OkHttpClient provideOkHttpClient() {
+    final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+    loggingInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
     return new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS)
         .readTimeout(10, TimeUnit.SECONDS)
         .addInterceptor(loggingInterceptor)
@@ -55,15 +59,20 @@ public final class DataModule {
         .build();
   }
 
-  @NonNull @Provides @Singleton DataStorage provideDataStorage(DataStorageImpl repository) {
+  @Provides
+  @Singleton
+  static DataStorage provideDataStorage(DataStorageImpl repository) {
     return repository;
   }
 
-  @NonNull @Provides Realm provideRealm() {
+  @Provides
+  static Realm provideRealm() {
     return Realm.getDefaultInstance();
   }
 
-  @NonNull @Provides @Singleton Retrofit provideRetrofit(OkHttpClient client, HttpUrl baseUrl) {
+  @Provides
+  @Singleton
+  static Retrofit provideRetrofit(OkHttpClient client, HttpUrl baseUrl) {
     return new Retrofit.Builder().baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -71,7 +80,9 @@ public final class DataModule {
         .build();
   }
 
-  @NonNull @Provides @Singleton LocalCache provideLocalCache(RealmLocalCache cache) {
+  @Provides
+  @Singleton
+  static LocalCache provideLocalCache(RealmLocalCache cache) {
     return cache;
   }
 }

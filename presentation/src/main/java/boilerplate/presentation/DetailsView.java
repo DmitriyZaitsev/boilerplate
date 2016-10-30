@@ -1,6 +1,5 @@
-package boilerplate.presentation.view;
+package boilerplate.presentation;
 
-import boilerplate.presentation.model.Repository;
 import viper.ViewCallbacks;
 
 /**

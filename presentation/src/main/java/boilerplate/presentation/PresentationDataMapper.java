@@ -1,11 +1,9 @@
 package boilerplate.presentation;
 
-import boilerplate.domain.dto.OwnerDto;
-import boilerplate.domain.dto.RepositoryDto;
-import boilerplate.presentation.model.Owner;
-import boilerplate.presentation.model.Repository;
-import viper.Mapper;
+import boilerplate.domain.OwnerDto;
+import boilerplate.domain.RepositoryDto;
 import javax.inject.Inject;
+import viper.Mapper;
 
 /**
  * ~ ~ ~ ~ Description ~ ~ ~ ~
@@ -15,10 +13,19 @@ import javax.inject.Inject;
  */
 public final class PresentationDataMapper extends Mapper<RepositoryDto, Repository> {
 
-  @Inject PresentationDataMapper() {
+  @Inject
+  PresentationDataMapper() {
   }
 
-  @Override public Repository map(RepositoryDto dto) {
+  private static Owner toOwner(OwnerDto dto) {
+    return Owner.builder()
+        .avatarUrl(dto.getAvatarUrl())
+        .login(dto.getLogin())
+        .build();
+  }
+
+  @Override
+  public Repository map(RepositoryDto dto) {
     return Repository.builder()
         .description(dto.getDescription())
         .forks(dto.getForks())
@@ -27,13 +34,6 @@ public final class PresentationDataMapper extends Mapper<RepositoryDto, Reposito
         .owner(toOwner(dto.getOwner()))
         .updatedAt(dto.getUpdatedAt())
         .watchers(dto.getWatchers())
-        .build();
-  }
-
-  Owner toOwner(OwnerDto dto) {
-    return Owner.builder()
-        .avatarUrl(dto.getAvatarUrl())
-        .login(dto.getLogin())
         .build();
   }
 }

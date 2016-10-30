@@ -7,10 +7,10 @@
 
     <variable
       name="repository"
-      type="boilerplate.presentation.model.Repository" />
+      type="boilerplate.presentation.Repository" />
   </data>
 
-  <boilerplate.presentation.view.ui.RepositoryDetailsView xmlns:android="http://schemas.android.com/apk/res/android"
+  <boilerplate.presentation.RepositoryDetailsView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:attr/selectableItemBackground"
@@ -37,7 +37,6 @@
       android:layout_toRightOf="@id/avatar"
       android:ellipsize="end"
       android:maxLines="1"
-      android:singleLine="true"
       android:text="@{repository.name}"
       android:textAppearance="?android:attr/textAppearanceLarge"
       android:textColor="?android:attr/textColorPrimary"
@@ -82,5 +81,5 @@
       android:text="@{String.valueOf(repository.forks)}"
       android:textColor="?android:attr/textColorPrimary"
       android:textSize="12sp" />
-  </boilerplate.presentation.view.ui.RepositoryDetailsView>
+  </boilerplate.presentation.RepositoryDetailsView>
 </layout>

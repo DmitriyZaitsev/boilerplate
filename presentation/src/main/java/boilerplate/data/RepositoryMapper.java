@@ -12,13 +12,15 @@ import viper.Mapper;
  * @since 2016-Mar-20, 03:20
  */
 public final class RepositoryMapper extends Mapper<Repository, GithubRepository> {
-  private final OwnerMapper mMapper;
+  private final OwnerMapper mapper;
 
-  @Inject RepositoryMapper(OwnerMapper mapper) {
-    mMapper = mapper;
+  @Inject
+  RepositoryMapper(OwnerMapper mapper) {
+    this.mapper = mapper;
   }
 
-  @Override public GithubRepository map(Repository repo) {
+  @Override
+  public GithubRepository map(Repository repo) {
     final GithubRepository repository = new GithubRepository();
     repository.setId(repo.getId());
     repository.setName(repo.getName());
@@ -27,7 +29,7 @@ public final class RepositoryMapper extends Mapper<Repository, GithubRepository>
     repository.setHtmlUrl(repo.getHtmlUrl());
     repository.setUpdatedAt(repo.getUpdatedAt());
     repository.setWatchers(repo.getWatchers());
-    repository.setOwner(mMapper.map(repo.getOwner()));
+    repository.setOwner(mapper.map(repo.getOwner()));
     return repository;
   }
 }
