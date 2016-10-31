@@ -1,5 +1,6 @@
 apply from: 'dependencies.gradle'
 apply from: 'buildconfig.gradle'
+apply from: 'hooks/install-git-hooks.gradle'
 
 buildscript {
   repositories {
